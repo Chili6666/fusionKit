@@ -1,37 +1,29 @@
 import { createApp } from "vue";
 import "./style.css";
 import App from "./App.vue";
-import { ConfigurationManager, ShellApp } from "fusion-kit";
+import { ConfigurationManagerBuilder } from "fusion-kit";
 import { AuthFactory } from "./utils/AuthFactory";
-import type { Configuration } from "./configuration";
+import { ShellAppBuilder } from "fusion-kit";
 
 //manage config
-const configManager = new ConfigurationManager(
-  window.location.origin + "/config/"
-);
-await configManager.loadJsonContent<Configuration>("config.json", "config");
+const configManager = await new ConfigurationManagerBuilder()
+  .withConfigurationDirectory(window.location.origin + "/config/")
+  .withFileToLoad("config.json", "config")
+  .build();
 
-//initialize auth service
-const authFactory: AuthFactory = new AuthFactory();
-const authService = await authFactory.getAuthService(configManager, false);
+//initialize auth service factory
+const authServiceFactory = async () => {
+  const authService = await AuthFactory.getAuthService(configManager, false);
+  if (!authService) throw new Error("Failed to initialize AuthService");
+  return authService;
+};
 
-if (authService === null) {
-  throw new Error("Auth service not found");
-}
-
-//create shell app instance.
-const shellApp: ShellApp = new ShellApp("shell", authService);
-/*
-
- const shellAppBuilder = new ShellAppBuilder();
-  const shellApp = shellAppBuilder
-    .withName("shell")
-    .withAuth(authService)
-    .withConfigManager(configManager)
-    .build();
-*/
-
-//shellApp.addService("shell", shellApp);
+//create shell app instance using builder pattern
+const shellApp = await new ShellAppBuilder()
+  .withName("shell")
+  .withAuthFactory(authServiceFactory)
+  .withConfigManager(configManager)
+  .build();
 
 //init vue app
 const initApp = async () => {

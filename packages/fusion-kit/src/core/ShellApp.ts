@@ -6,6 +6,7 @@ import {
 } from "fusion-kit-contracts";
 import { ConsoleLogger } from "../services/ConsoleLogger";
 import { UserFeedback } from "./UserFeedBack";
+import { ConfigurationManager } from './ConfigurationManager';
 
 /**
  * Represents a microfrontend application.
@@ -15,6 +16,7 @@ export class ShellApp {
   private _auth: AuthService;
   private _logger: Logger | undefined;
   private _isBusy: boolean = false;
+  private _configurationManager : ConfigurationManager | undefined;
   private _isBusyCallback: ((isBusy: boolean) => void) | undefined;
   private _userFeedback: UserFeedback = new UserFeedback();
 
@@ -23,9 +25,10 @@ export class ShellApp {
    * @param name - The name of the application.
    * @param auth - The authentication service used by the application.
    */
-  constructor(name: string, auth: AuthService) {
+  constructor(name: string, auth: AuthService, configurationManager: ConfigurationManager | undefined) {
     this._name = name;
-    this._auth = auth;    
+    this._auth = auth;
+    this._configurationManager = configurationManager; 
   }
 
   /**
@@ -51,6 +54,10 @@ export class ShellApp {
    */
   public get auth(): AuthService {
     return this._auth;
+  }
+
+  public get configurationManager(): ConfigurationManager | undefined {
+    return this._configurationManager;
   }
 
   /**

@@ -14,7 +14,7 @@ export interface AuthService {
    * Gets the authentication token.
    * @returns The authentication token, if available.
    */
-  getToken(): string | undefined;
+  get token(): string | undefined;
 
   /**
    * Logs out the user.
@@ -26,4 +26,6 @@ export interface AuthService {
    * @returns The user profile information, if available.
    */
   getUserInfo(): Promise<AuthUserProfile | undefined>;
+
+  get isLoggedin(): boolean;
 }
