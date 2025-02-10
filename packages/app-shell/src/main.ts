@@ -3,10 +3,12 @@ import "./style.css";
 import App from "./App.vue";
 import { ConfigurationManager, ShellApp } from "fusion-kit";
 import { AuthFactory } from "./utils/AuthFactory";
-import type { Configuration } from './configuration';
+import type { Configuration } from "./configuration";
 
 //manage config
-const configManager = new ConfigurationManager(window.location.origin + "/config/");
+const configManager = new ConfigurationManager(
+  window.location.origin + "/config/"
+);
 await configManager.loadJsonContent<Configuration>("config.json", "config");
 
 //initialize auth service
@@ -33,10 +35,14 @@ const shellApp: ShellApp = new ShellApp("shell", authService);
 
 //init vue app
 const initApp = async () => {
-  await shellApp?.auth.init();
-  const app = createApp(App);
-  app.provide("shellApp", shellApp);
-  app.mount("#app");
+  const isLoggedIn = await shellApp?.auth.init();
+  if (!isLoggedIn) {
+    window.alert("User not logged in");
+  } else {
+    const app = createApp(App);
+    app.provide("shellApp", shellApp);
+    app.mount("#app");
+  }
 };
 
 initApp();

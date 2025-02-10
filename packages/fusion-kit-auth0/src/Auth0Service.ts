@@ -27,7 +27,7 @@ export class Auth0Service implements AuthService {
       if (!window.location.search.includes("code=")) {
         console.log("loginWithRedirect");
         await this.auth0.loginWithRedirect();
-        return false;
+        return true;
       } else {
         // We're in the callback, get and store token
         try {
