@@ -8,7 +8,7 @@ export class ConfigurationManager {
     }
   }
 
-  public async loadJsonContent<T>(filename: string, type: string): Promise<T> {
+  public async loadJsonContent(filename: string, type: string): Promise<void> {
     // Combine the directory and filename to get the full path
     const url = `${this.configurationDirectory}${filename}`;
 
@@ -16,7 +16,7 @@ export class ConfigurationManager {
       // Check if content is already loaded
       if (this.contentMap.has(type)) {
         console.log(`Content of type ${type} already loaded`);
-        return this.contentMap.get(type) as T;
+        return;
       }
 
       const response = await fetch(url, {
@@ -30,7 +30,7 @@ export class ConfigurationManager {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
-      const content = (await response.json()) as T;
+      const content = await response.json();
       this.contentMap.set(type, content);
 
       return content;
