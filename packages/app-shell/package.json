@@ -1,0 +1,25 @@
+{
+  "name": "app-shell",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc -b && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "vue": "^3.5.13",
+    "fusion-kit": "file:../fusion-kit",
+    "fusion-kit-contracts": "file:../fusion-kit-contracts",
+    "fusion-kit-keycloak": "file:../fusion-kit-keycloak",
+    "fusion-kit-auth0": "file:../fusion-kit-auth0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.2.1",
+    "@vue/tsconfig": "^0.7.0",
+    "typescript": "~5.7.2",
+    "vite": "^6.1.0",
+    "vue-tsc": "^2.2.0"
+  }
+}

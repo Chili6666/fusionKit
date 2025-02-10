@@ -1,0 +1,16 @@
+{
+    "formatVersion": 1,
+    "application": {
+        "culture": "en-us"
+    },
+    "keycloak": {
+        "realm": "YOUR_REALM",
+        "url": "YOUR_URL",
+        "clientid": "YOUT_CLIENT_ID"
+    },
+    "auth0": {
+        "domain": "YOUR_DOMAIN",
+        "clientid": "YOUR_CLIENT_ID",
+        "redirectUrl": "YOUR_REDIRECT_URL"
+    }
+}

@@ -1,0 +1,23 @@
+{
+  "name": "fusion-kit-keycloak",
+  "version": "1.0.0",
+  "description": "A Library to access keycloak",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": ["microfrontend", "typescript"],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "keycloak-js": "25.0.6",
+    "fusion-kit-contracts": "file:../fusion-kit-contracts"
+  },
+  "devDependencies": {
+    "typescript": "^5.2.2",
+    "@types/node": "^20.0.0"
+  }
+}
