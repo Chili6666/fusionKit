@@ -33,9 +33,6 @@ const shellApp: ShellApp = new ShellApp("shell", authService);
 
 //init vue app
 const initApp = async () => {
-  //await shellApp?.auth.logout();
-
-  //trigger init if nessesary
   await shellApp?.auth.init();
   const app = createApp(App);
   app.provide("shellApp", shellApp);

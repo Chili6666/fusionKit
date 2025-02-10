@@ -38,7 +38,7 @@ export class KeyCloakService implements AuthService {
     }
   }
 
-  public getToken(): string | undefined {
+  public get token(): string | undefined {
     return this.keycloak.token;
   }
 
@@ -50,8 +50,10 @@ export class KeyCloakService implements AuthService {
     return this.keycloak.profile;
   }
 
-  public isLoggedIn(): boolean {
-    return !!this.keycloak.authenticated;
+  public get isLoggedin(): boolean {
+    if(this.keycloak.authenticated)
+      return true;
+    return false;
   }
 
   /**

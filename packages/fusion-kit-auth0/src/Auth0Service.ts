@@ -7,7 +7,7 @@ import { Auth0Config } from './Auth0Config';
 export class Auth0Service implements AuthService {
   private auth0: Auth0Client;
   private readonly authConfig: Auth0Config;
-  private token: string | undefined;  
+  private _token: string | undefined;  
 
   constructor(authConfig: Auth0Config) {
     this.authConfig = authConfig;
@@ -32,7 +32,7 @@ export class Auth0Service implements AuthService {
         // We're in the callback, get and store token
         try {
           console.log("getTokenSilently");
-          this.token = await this.auth0.getTokenSilently();
+          this._token = await this.auth0.getTokenSilently();
           //localStorage.setItem("auth_token", token);
           //console.log("token", token);
 
@@ -48,8 +48,12 @@ export class Auth0Service implements AuthService {
     return false;
   }
 
-  public getToken(): string | undefined {
-    return this.token;
+  public get token(): string | undefined {
+    return this._token;
+  }
+
+  public get isLoggedin(): boolean {
+    return !!this._token;
   }
 
   public async logout(): Promise<void> {
