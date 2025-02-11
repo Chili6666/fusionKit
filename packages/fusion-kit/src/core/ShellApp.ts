@@ -7,6 +7,7 @@ import {
 import { ConsoleLogger } from "../services/ConsoleLogger";
 import { UserFeedback } from "./UserFeedBack";
 import { ConfigurationManager } from './ConfigurationManager';
+import { FederationStrategyManager } from './FederationStrategyManager';
 
 /**
  * Represents a microfrontend application.
@@ -17,6 +18,7 @@ export class ShellApp {
   private _logger: Logger | undefined;
   private _isBusy: boolean = false;
   private _configurationManager : ConfigurationManager | undefined;
+  private _federationStrategyManager: FederationStrategyManager | undefined;
   private _isBusyCallback: ((isBusy: boolean) => void) | undefined;
   private _userFeedback: UserFeedback = new UserFeedback();
 
@@ -28,7 +30,8 @@ export class ShellApp {
   constructor(name: string, auth: AuthService, configurationManager: ConfigurationManager | undefined) {
     this._name = name;
     this._auth = auth;
-    this._configurationManager = configurationManager; 
+    this._configurationManager = configurationManager;
+    this._federationStrategyManager = new FederationStrategyManager();
   }
 
   /**
@@ -78,6 +81,13 @@ export class ShellApp {
    */
   public get userFeedback(): UserFeedback {
     return this._userFeedback;
+  }
+
+  /**
+   * Gets the federation strategy manager used by the application.
+   */
+  public get federationStrategyManager(): FederationStrategyManager | undefined {
+    return this._federationStrategyManager;
   }
 
   /**

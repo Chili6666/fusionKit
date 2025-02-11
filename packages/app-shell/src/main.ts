@@ -1,9 +1,10 @@
 import { createApp } from "vue";
 import "./style.css";
 import App from "./App.vue";
-import { ConfigurationManagerBuilder } from "fusion-kit";
+import { ConfigurationManagerBuilder, ConsoleLogger } from "fusion-kit";
 import { AuthFactory } from "./utils/AuthFactory";
 import { ShellAppBuilder } from "fusion-kit";
+import { LoggerOptions } from 'fusion-kit-contracts';
 
 //manage config
 const configManager = await new ConfigurationManagerBuilder()
@@ -23,6 +24,7 @@ const shellApp = await new ShellAppBuilder()
   .withName("shell")
   .withAuthFactory(authServiceFactory)
   .withConfigManager(configManager)
+  .withLogger(new ConsoleLogger(LoggerOptions.DEBUG))
   .build();
 
 //init vue app

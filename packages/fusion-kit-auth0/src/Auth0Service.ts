@@ -31,14 +31,15 @@ export class Auth0Service implements AuthService {
       } else {
         // We're in the callback, get and store token
         try {
-          console.log("getTokenSilently");
+          // Get Access Token
           this._token = await this.auth0.getTokenSilently();
-          //localStorage.setItem("auth_token", token);
-          //console.log("token", token);
 
-          // Optionally store user info
+          // Get ID Token claims (user info)
+          // const claims = await this.auth0.getIdTokenClaims();
+          // const idToken = claims?.__raw;  // The actual ID token
+          
+          // Get full user info
           //const user = await this.auth0.getUser();
-          //localStorage.setItem("user", JSON.stringify(user));
           return true;
         } catch (error) {
           console.error("Error storing token:", error);
