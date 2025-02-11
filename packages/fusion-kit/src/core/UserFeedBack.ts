@@ -72,7 +72,7 @@ export class UserFeedback {
 
   public showToast = (
     message: string,
-    toastType: ToastTypes = "success"
+    toastType: ToastTypes
   ): void => {
 
     console.log('showToast', message, toastType);

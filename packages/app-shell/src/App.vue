@@ -6,28 +6,26 @@
       <button @click="handleShowNotification">Show Notification</button>
       <button @click="handleShowToast">Show Toast</button>
     </div>
-    <div class="content">
-      <!-- Your main content goes here -->
-    </div>
+
+    <router-view></router-view>
     <LoggerDisplay class="logger"></LoggerDisplay>
   </div>
 </template>
 
 <script setup lang="ts">
 import LoggerDisplay from "./components/LoggerDisplay.vue";
-import { inject } from 'vue';
-import type { ShellApp } from 'fusion-kit';
-import { AppFrameAdapter } from './utils/AppFrameAdapter';
+import { inject } from "vue";
+import type { ShellApp } from "fusion-kit";
+import { AppFrameAdapter } from "./utils/AppFrameAdapter";
 
 // Inject the shellApp provided in main.ts
-const shellApp = inject<ShellApp>('shellApp');
+const shellApp = inject<ShellApp>("shellApp");
 
 if (!shellApp) {
-  throw new Error('shellApp not found');
+  throw new Error("shellApp not found");
 }
 //register the frame adapter
 shellApp.registerFrameAdapter(new AppFrameAdapter());
-
 
 const handleLogout = async () => {
   await shellApp.auth.logout();
@@ -36,30 +34,26 @@ const handleLogout = async () => {
 
 const handleShowMessageBox = () => {
   shellApp.userFeedback.showMessageBox(
-    "This is a message box",[{ message: "Hello from Shell App", type: 'info' }],
+    "This is a message box",
+    [{ message: "Hello from Shell App", type: "info" }],
     "cancel",
     "ok"
   );
 };
 
 const handleShowNotification = () => {
-  shellApp.userFeedback.showNotification(
-    "Hello from Shell App",
-    'info'
-  );
+  shellApp.userFeedback.showNotification("Hello from Shell App", "info");
 };
 
 const handleShowToast = () => {
   shellApp.userFeedback.showToast("Hello from Shell App", "info");
 };
-
-
 </script>
 
 <style scoped>
 #app {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
   height: 100vh;
   width: 95vw;
 }

@@ -1,6 +1,7 @@
 import { createApp } from "vue";
 import "./style.css";
 import App from "./App.vue";
+import router from './router'
 import { ConfigurationManagerBuilder, ConsoleLogger } from "fusion-kit";
 import { AuthFactory } from "./utils/AuthFactory";
 import { ShellAppBuilder } from "fusion-kit";
@@ -34,6 +35,7 @@ const initApp = async () => {
     window.alert("User not logged in");
   } else {
     const app = createApp(App);
+    app.use(router)
     app.provide("shellApp", shellApp);
     app.mount("#app");
   }

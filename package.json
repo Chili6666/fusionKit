@@ -8,7 +8,11 @@
     "scripts": {
         "build": "lerna run build",
         "dev": "lerna run dev --scope app-shell",
-        "watch": "lerna run --parallel watch"
+        "watch": "lerna run --parallel watch",
+        "build:mfe1": "npm run build -w mfe1",
+        "preview:mfe1": "npm run preview -w mfe1 -- --port 4001",
+        "build:mfe2": "npm run build -w mfe2",
+        "preview:mfe2": "npm run preview -w mfe2 -- --port 4002"
     },
     "devDependencies": {
         "lerna": "8.1.9"

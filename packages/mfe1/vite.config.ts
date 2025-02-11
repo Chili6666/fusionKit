@@ -7,17 +7,25 @@ export default defineConfig({
   plugins: [
     vue(),
     federation({
-      name: "app-shell",
-      remotes: {
-        mfe1: "http://localhost:4001/assets/remoteEntry.js",
-        mfe2: "http://localhost:4002/assets/remoteEntry.js",
+      //The name of your host application
+      name: "mfe1",
+      filename: "remoteEntry.js",
+      // Modules to expose
+      exposes: {
+        "./App": "./src/App.vue",
       },
+      // Common dependencies that should be shared
       shared: ["vue"],
     }),
   ],
   build: {
-    target: "esnext", // Use a target that supports top-level await
+    target: "esnext",
     minify: false,
     cssCodeSplit: false,
+    rollupOptions: {
+      output: {
+        minifyInternalExports: false,
+      },
+    },
   },
 });
