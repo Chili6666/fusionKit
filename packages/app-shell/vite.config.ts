@@ -2,16 +2,29 @@ import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
 import federation from "@originjs/vite-plugin-federation";
 
+export const remotes = {
+  mfe1: {
+    url: "http://localhost:4001/assets/remoteEntry.js",
+    type: "vite", // or "webpack"
+  },
+  mfe2: {
+    url: "http://localhost:4002/assets/remoteEntry.js",
+    type: "vite", // or "webpack"
+  },
+};
+
+
+const getFormattedRemotes = () => { 
+  return  Object.fromEntries(Object.entries(remotes).map(([key, value]) => [key, value.url]));
+}
+
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [
     vue(),
     federation({
       name: "app-shell",
-      remotes: {
-        mfe1: "http://localhost:4001/assets/remoteEntry.js",
-        mfe2: "http://localhost:4002/assets/remoteEntry.js",
-      },
+      remotes: getFormattedRemotes(),
       shared: ["vue"],
     }),
   ],
