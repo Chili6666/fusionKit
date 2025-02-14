@@ -2,7 +2,7 @@ import { createApp } from "vue";
 import "./style.css";
 import App from "./App.vue";
 import router from './router'
-import { ConfigurationManagerBuilder, ConsoleLogger } from "fusion-kit";
+import { ConfigurationManagerBuilder, ConsoleLogger, EncryptedStorage } from "fusion-kit";
 import { AuthFactory } from "./utils/AuthFactory";
 import { ShellAppBuilder } from "fusion-kit";
 import { LoggerOptions } from 'fusion-kit-contracts';
@@ -26,6 +26,7 @@ const shellApp = await new ShellAppBuilder()
   .withAuthFactory(authServiceFactory)
   .withConfigManager(configManager)
   .withLogger(new ConsoleLogger(LoggerOptions.DEBUG))
+  .withEncryptedStorage(new EncryptedStorage('ADD_YOUR_SECRET_KEY'))
   .build();
 
 //init vue app

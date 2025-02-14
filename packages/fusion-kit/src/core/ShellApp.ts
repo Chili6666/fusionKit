@@ -8,6 +8,7 @@ import { ConsoleLogger } from "../services/ConsoleLogger";
 import { UserFeedback } from "./UserFeedBack";
 import { ConfigurationManager } from './ConfigurationManager';
 import { FederationStrategyManager } from './FederationStrategyManager';
+import { EncryptedStorage } from './EncryptedStorage';
 
 /**
  * Represents a microfrontend application.
@@ -19,6 +20,7 @@ export class ShellApp {
   private _isBusy: boolean = false;
   private _configurationManager : ConfigurationManager | undefined;
   private _federationStrategyManager: FederationStrategyManager | undefined;
+  private _encryptedStorage: EncryptedStorage | undefined;
   private _isBusyCallback: ((isBusy: boolean) => void) | undefined;
   private _userFeedback: UserFeedback = new UserFeedback();
 
@@ -74,6 +76,17 @@ export class ShellApp {
 
   public set logger(logger: Logger) {
     this._logger = logger;
+  }
+
+  /**
+   * Gets the encrypted storage used by the application.
+   */
+  public get encryptedStorage(): EncryptedStorage | undefined {
+    return this._encryptedStorage;
+  }
+
+  public set encryptedStorage(encryptedStorage: EncryptedStorage | undefined) {
+    this._encryptedStorage = encryptedStorage
   }
 
   /**
