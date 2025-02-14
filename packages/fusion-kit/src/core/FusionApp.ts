@@ -13,7 +13,7 @@ import { EncryptedStorage } from './EncryptedStorage';
 /**
  * Represents a microfrontend application.
  */
-export class ShellApp {
+export class FusionApp {
   private _name: string;
   private _auth: AuthService;
   private _logger: Logger | undefined;

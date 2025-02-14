@@ -4,7 +4,7 @@ import App from "./App.vue";
 import router from './router'
 import { ConfigurationManagerBuilder, ConsoleLogger, EncryptedStorage } from "fusion-kit";
 import { AuthFactory } from "./utils/AuthFactory";
-import { ShellAppBuilder } from "fusion-kit";
+import { FusionAppBuilder } from "fusion-kit";
 import { LoggerOptions } from 'fusion-kit-contracts';
 
 //manage config
@@ -21,8 +21,8 @@ const authServiceFactory = async () => {
 };
 
 //create shell app instance using builder pattern
-const shellApp = await new ShellAppBuilder()
-  .withName("shell")
+const fusionApp = await new FusionAppBuilder()
+  .withName("Test-App")
   .withAuthFactory(authServiceFactory)
   .withConfigManager(configManager)
   .withLogger(new ConsoleLogger(LoggerOptions.DEBUG))
@@ -31,13 +31,13 @@ const shellApp = await new ShellAppBuilder()
 
 //init vue app
 const initApp = async () => {
-  const isLoggedIn = await shellApp?.auth.init();
+  const isLoggedIn = await fusionApp?.auth.init();
   if (!isLoggedIn) {
     window.alert("User not logged in");
   } else {
     const app = createApp(App);
     app.use(router)
-    app.provide("shellApp", shellApp);
+    app.provide("shellApp", fusionApp);
     app.mount("#app");
   }
 };

@@ -15,11 +15,11 @@
 <script setup lang="ts">
 import LoggerDisplay from "./components/LoggerDisplay.vue";
 import { inject } from "vue";
-import type { ShellApp } from "fusion-kit";
+import type { FusionApp } from "fusion-kit";
 import { AppFrameAdapter } from "./utils/AppFrameAdapter";
 
 // Inject the shellApp provided in main.ts
-const shellApp = inject<ShellApp>("shellApp");
+const shellApp = inject<FusionApp>("shellApp");
 
 if (!shellApp) {
   throw new Error("shellApp not found");
