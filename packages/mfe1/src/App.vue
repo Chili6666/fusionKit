@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="mfe1">
     <h1>Microfrontend 1</h1>
     <div class="scroll-viewer">
       <ul class="flights-grid">
@@ -81,5 +81,9 @@ const flights = ref<Flight[]>([
 
 .flight-item p {
   margin: 5px 0;
+}
+
+.mfe1 {
+ background-color: rgb(254, 254, 133);;
 }
 </style>

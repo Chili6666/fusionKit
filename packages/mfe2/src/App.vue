@@ -1,5 +1,5 @@
 <template>
-  <div class="app">
+  <div class="mfe2">
     <h1>Microfrontend 2</h1>
     <div id="map" class="map"></div>
   </div>
@@ -14,6 +14,7 @@ import OSM from 'ol/source/OSM';
 onMounted(() => {
   new Map({
     target: 'map',
+    controls: [],
     layers: [
       new TileLayer({
         source: new OSM()
@@ -31,5 +32,9 @@ onMounted(() => {
 .map {
   width: 100%;
   height: 400px;
+}
+
+.mfe2 {
+ background-color: rgb(254, 254, 133);
 }
 </style>
