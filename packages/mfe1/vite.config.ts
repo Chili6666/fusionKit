@@ -13,6 +13,9 @@ export default defineConfig({
       // Modules to expose
       exposes: {
         "./App": "./src/App.vue",
+        "./Navigation": "./src/components/Navigation.vue",
+        "./Flights": "./src/views/Flights.vue",
+        './bootstrap': './src/bootstrap.ts'
       },
       // Common dependencies that should be shared
       shared: ["vue"],

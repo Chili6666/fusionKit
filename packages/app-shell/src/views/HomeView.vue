@@ -11,24 +11,22 @@
         <h3>Microfrontend 2</h3>
         <p>Load a Map</p>
       </div>
-
-      
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { useRouter } from 'vue-router';
+import { useRouter } from "vue-router";
+
 const router = useRouter();
 
 const navigateToMFE1 = () => {
-  router.push('/mfe1');
+  router.push("/mfe1");
 };
 
 const navigateToMFE2 = () => {
-  router.push('/mfe2');
+  router.push("/mfe2");
 };
-
 </script>
 
 <style scoped>
