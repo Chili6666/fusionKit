@@ -42,4 +42,6 @@ const initApp = async () => {
   }
 };
 
-initApp();
+(async () => {
+  await initApp();
+})();
