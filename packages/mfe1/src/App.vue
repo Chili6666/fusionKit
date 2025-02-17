@@ -1,6 +1,6 @@
 <template>
   <div class="mfe1">
-    <h1>Flight viewer</h1>
+    <div>Flight viewer</div>
     <div class="container">
       <Navigation></Navigation>
       <router-view></router-view>
@@ -15,6 +15,7 @@ import Navigation from "./components/Navigation.vue";
 <style scoped>
 .mfe1 {
   background-color: rgb(254, 254, 133);
+  height: 100%;
 }
 .container {
   display: grid;

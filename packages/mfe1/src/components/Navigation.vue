@@ -56,7 +56,7 @@ const navigateToProfile = () => {
   display: flex;
   align-items: center;
   margin-bottom: 10px;
-  min-width: 200px;
+  min-width: 220px;
 }
 
 .icon {

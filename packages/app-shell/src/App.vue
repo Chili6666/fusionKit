@@ -29,7 +29,7 @@
       </button>
     </div>
 
-    <router-view class="router-view"></router-view>
+    <router-view ></router-view>
 
     <LoggerDisplay class="logger"></LoggerDisplay>
   </div>
@@ -85,14 +85,6 @@ const handleShowToast = () => {
   display: grid;
   grid-template-rows: auto 1fr auto;
   height: 100vh;
-}
-
-.router-view {
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-  padding: 20px;
-  overflow: auto;
 }
 
 .toolbar {

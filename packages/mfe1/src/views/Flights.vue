@@ -1,5 +1,5 @@
 <template>
-  <div class="scroll-viewer">
+  <div class="scroll-viewer-container">
     <div class="flights-grid">
       <div
         v-for="flight in flights"
@@ -200,7 +200,7 @@ const flights = ref<Flight[]>([
 </script>
 
 <style scoped>
-.scroll-viewer {
+.scroll-viewer-container {
   max-height: 400px;
   overflow-y: auto;
   overflow-x: hidden;

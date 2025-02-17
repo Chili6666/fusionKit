@@ -3,6 +3,8 @@ import AppComponent from "./App.vue";
 import type { Option } from "./types";
 import router from "../src/router/index.ts";
 
+
+
 let app: App | null = null;
 let mountedElement: HTMLElement | null = null;
 
@@ -24,6 +26,9 @@ export const init = (container: string | HTMLElement) => {
 
   // Create a new div element to mount the app
   mountedElement = document.createElement("div");
+  mountedElement.style.width = "100%";
+  mountedElement.style.height = "100%";
+  mountedElement.style.backgroundColor="red";
   containerElement.appendChild(mountedElement);
 
   app = createApp(AppComponent);
