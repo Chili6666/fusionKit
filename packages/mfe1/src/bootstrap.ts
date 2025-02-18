@@ -26,9 +26,6 @@ export const init = (container: string | HTMLElement) => {
 
   // Create a new div element to mount the app
   mountedElement = document.createElement("div");
-  mountedElement.style.width = "100%";
-  mountedElement.style.height = "100%";
-  mountedElement.style.backgroundColor="red";
   containerElement.appendChild(mountedElement);
 
   app = createApp(AppComponent);
