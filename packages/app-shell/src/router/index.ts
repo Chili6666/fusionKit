@@ -16,6 +16,7 @@ const router = createRouter({
       //Important to use the function syntax here to lazy load the MicroFrontendWrapper
       //otherwise the MFE router is activated before the AppShell router
       component: () => import('../views/MicroFrontendWrapper.vue') // Lazy load the MicroFrontendWrapper
+      //component: () => import('mfe1/ReactRemoteWrapper') // Lazy load the MicroFrontendWrapper
    },
     {
       path: '/mfe2',

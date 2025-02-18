@@ -2,6 +2,8 @@
   <div id="mycontainer"></div>
 </template>
 
+<!-- this is wrapper for bbotstrapping microfrontends-->
+
 <script setup lang="ts">
 import { init, unmount, getOptions } from "mfe1/bootstrap";
 import { onMounted, onUnmounted } from "vue";

@@ -5,7 +5,14 @@ import federation from "@originjs/vite-plugin-federation";
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [
-    vue(),
+    vue({
+      template: {
+        compilerOptions: {
+          // All components starting with "inf-" are web components
+          isCustomElement: tag => tag.startsWith('react-'),
+        },
+      },
+    }),
     federation({
       //The name of your host application
       name: "mfe1",
@@ -14,6 +21,7 @@ export default defineConfig({
       exposes: {
         "./App": "./src/App.vue",
         "./Navigation": "./src/components/Navigation.vue",
+        "./ReactRemoteWrapper": "./src/components/ReactRemoteWrapper.vue",
         "./Flights": "./src/views/Flights.vue",
         './bootstrap': './src/bootstrap.ts'
       },
