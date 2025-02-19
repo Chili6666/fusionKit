@@ -26,6 +26,7 @@ export default defineConfig({
     rollupOptions: {
       output: {
         minifyInternalExports: false,
+        format: 'esm'
       },
     },
   },
