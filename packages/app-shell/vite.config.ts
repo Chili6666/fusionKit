@@ -1,18 +1,7 @@
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
 import federation from "@originjs/vite-plugin-federation";
-
-export const remotes = {
-  mfe1: {
-    url: "http://localhost:4001/assets/remoteEntry.js",
-    type: "vite", // or "webpack"
-  },
-  mfe2: {
-    url: "http://localhost:4002/assets/remoteEntry.js",
-    type: "vite", // or "webpack"
-  },
-};
-
+import remotes from "./public/config/remotes.json";
 
 const getFormattedRemotes = () => { 
   return  Object.fromEntries(Object.entries(remotes).map(([key, value]) => [key, value.url]));
