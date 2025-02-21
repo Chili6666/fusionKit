@@ -1,14 +1,11 @@
 import { createApp, type App } from "vue";
 import AppComponent from "./App.vue";
-import type { Option } from "./types";
-import router from "../src/router/index.ts";
-
-
+import router from './router';
 
 let app: App | null = null;
 let mountedElement: HTMLElement | null = null;
 
-export const init = (container: string | HTMLElement) => {
+export const mount = (container: string | HTMLElement) => {
   if (app) {
     throw new Error("App already initialized");
   }
@@ -49,9 +46,32 @@ export const unmount = () => {
   app = null;
   mountedElement = null;
 };
-export const getOptions = (): Option[] => {
-  return [
-    { id: "1", name: "Option 1" },
-    { id: "2", name: "Option 2" },
-  ];
-};
+
+export const name = "mfe1";
+
+export const title = "MFE 1";
+
+export const description = "This is a micro frontend module 1";
+
+export const menuItems = [
+  {
+    id: "home",
+    title: "Home",
+    canExecute: true,
+    icon: "home",
+    execute: () => {
+      console.log("Home clicked");
+    },
+    menuItems: [],
+  },
+  {
+    id: "about",
+    title: "About",
+    canExecute: true,
+    icon: "info",
+    execute: () => {
+      console.log("About clicked");
+    },
+    menuItems: [],
+  },
+];

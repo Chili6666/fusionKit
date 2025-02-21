@@ -2,7 +2,7 @@
   {
     "url": "http://localhost:4001/assets/remoteEntry.js",
     "name": "mfe1",
-    "module": "./App",
+    "module": "./bootstrap",
     "format": "esm",
     "bundler": "vite"
   },
