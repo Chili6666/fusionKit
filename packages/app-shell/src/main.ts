@@ -1,16 +1,18 @@
 import { createApp } from "vue";
 import "./style.css";
 import App from "./App.vue";
-import router from './router'
 import { ConfigurationManagerBuilder, ConsoleLogger, EncryptedStorage } from "fusion-kit";
 import { AuthFactory } from "./utils/AuthFactory";
 import { FusionAppBuilder } from "fusion-kit";
 import { LoggerOptions } from 'fusion-kit-contracts';
+import { FederationModuleManager } from 'fusion-kit-modul-federation';
+import router from './router';
 
 //manage config
 const configManager = await new ConfigurationManagerBuilder()
   .withConfigurationDirectory(window.location.origin + "/config/")
   .withFileToLoad("config.json", "config")
+  .withFileToLoad("dynamicRemotes.json", "dynamicRemotes")
   .build();
 
 //initialize auth service factory
@@ -27,6 +29,7 @@ const fusionApp = await new FusionAppBuilder()
   .withConfigManager(configManager)
   .withLogger(new ConsoleLogger(LoggerOptions.DEBUG))
   .withEncryptedStorage(new EncryptedStorage('ADD_YOUR_SECRET_KEY'))
+  .withRemoteModuleManager(new FederationModuleManager())
   .build();
 
 //init vue app
@@ -37,7 +40,7 @@ const initApp = async () => {
   } else {
     const app = createApp(App);
     app.use(router)
-    app.provide("shellApp", fusionApp);
+    app.provide("fusionApp", fusionApp);
     app.mount("#app");
   }
 };

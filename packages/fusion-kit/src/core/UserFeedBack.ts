@@ -1,9 +1,4 @@
-import {
-  FrameAdapter,
-  MessageBoxMessage,
-  NotificationTypes,
-  ToastTypes,
-} from "fusion-kit-contracts";
+import { FrameAdapter, MessageBoxMessage, NotificationTypes, ToastTypes } from 'fusion-kit-contracts';
 
 /**
  * Service for handling user feedback such as notifications and messages.
@@ -24,10 +19,7 @@ export class UserFeedback {
    * @param message - The message to display.
    * @param notificationType - The type of notification.
    */
-  public showNotification = (
-    message: string | undefined,
-    notificationType: NotificationTypes
-  ) => {
+  public showNotification = (message: string | undefined, notificationType: NotificationTypes) => {
     if (!message || !notificationType || !this.frameAdapter) return;
     this.frameAdapter.showNotification(message, notificationType);
   };
@@ -40,14 +32,11 @@ export class UserFeedback {
     notifications: {
       message: string | undefined;
       notificationType: NotificationTypes;
-    }[]
+    }[],
   ): void => {
     if (!notifications || notifications.length === 0) return;
-    notifications.forEach((notification) => {
-      this.showNotification(
-        notification.message,
-        notification.notificationType
-      );
+    notifications.forEach(notification => {
+      this.showNotification(notification.message, notification.notificationType);
     });
   };
 
@@ -57,24 +46,13 @@ export class UserFeedback {
     cancelButtonText: string,
     confirmButtonText: string,
     confirmCallback?: () => void,
-    cancelCallback?: () => void
+    cancelCallback?: () => void,
   ): void => {
     if (!this.frameAdapter) return;
-    this.frameAdapter.showMessageBox(
-      title,
-      messages,
-      cancelButtonText,
-      confirmButtonText,
-      confirmCallback,
-      cancelCallback
-    );
+    this.frameAdapter.showMessageBox(title, messages, cancelButtonText, confirmButtonText, confirmCallback, cancelCallback);
   };
 
-  public showToast = (
-    message: string,
-    toastType: ToastTypes
-  ): void => {
-
+  public showToast = (message: string, toastType: ToastTypes): void => {
     console.log('showToast', message, toastType);
 
     if (!message || !toastType || !this.frameAdapter) return;

@@ -3,8 +3,8 @@ export class ConfigurationManager {
 
   public constructor(private configurationDirectory: string) {
     // Ensure the configuration directory ends with a '/'
-    if (!configurationDirectory.endsWith("/")) {
-      configurationDirectory += "/";
+    if (!configurationDirectory.endsWith('/')) {
+      configurationDirectory += '/';
     }
   }
 
@@ -21,9 +21,9 @@ export class ConfigurationManager {
 
       const response = await fetch(url, {
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
-        cache: "reload",
+        cache: 'reload',
       });
 
       if (!response.ok) {

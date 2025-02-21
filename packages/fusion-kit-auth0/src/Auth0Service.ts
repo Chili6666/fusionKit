@@ -1,13 +1,12 @@
-import { AuthService, AuthUserProfile } from "fusion-kit-contracts";
+import { AuthService, AuthUserProfile } from 'fusion-kit-contracts';
 
-import { Auth0Client } from "@auth0/auth0-spa-js";
+import { Auth0Client } from '@auth0/auth0-spa-js';
 import { Auth0Config } from './Auth0Config';
-
 
 export class Auth0Service implements AuthService {
   private auth0: Auth0Client;
   private readonly authConfig: Auth0Config;
-  private _token: string | undefined;  
+  private _token: string | undefined;
 
   constructor(authConfig: Auth0Config) {
     this.authConfig = authConfig;
@@ -24,8 +23,8 @@ export class Auth0Service implements AuthService {
     const isAuthenticated = await this.auth0.isAuthenticated();
 
     if (!isAuthenticated) {
-      if (!window.location.search.includes("code=")) {
-        console.log("loginWithRedirect");
+      if (!window.location.search.includes('code=')) {
+        console.log('loginWithRedirect');
         await this.auth0.loginWithRedirect();
         return true;
       } else {
@@ -37,12 +36,12 @@ export class Auth0Service implements AuthService {
           // Get ID Token claims (user info)
           // const claims = await this.auth0.getIdTokenClaims();
           // const idToken = claims?.__raw;  // The actual ID token
-          
+
           // Get full user info
           //const user = await this.auth0.getUser();
           return true;
         } catch (error) {
-          console.error("Error storing token:", error);
+          console.error('Error storing token:', error);
         }
       }
     }

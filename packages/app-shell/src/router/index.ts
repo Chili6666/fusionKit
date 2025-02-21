@@ -21,7 +21,9 @@ const router = createRouter({
     {
       path: '/mfe2',
       name: 'MFE2',
-      component: () => import('mfe2/App')
+      //component: () => import('mfe2/App')
+      component: () => import('../views/MicrofrontendWrapperEx.vue'), 
+      props: { moduleName: 'mfe2' } // Pass the moduleName prop
     }
   ]
 })

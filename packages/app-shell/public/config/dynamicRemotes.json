@@ -1,0 +1,16 @@
+[
+  {
+    "url": "http://localhost:4001/assets/remoteEntry.js",
+    "name": "mfe1",
+    "module": "./App",
+    "format": "esm",
+    "bundler": "vite"
+  },
+  {
+    "url": "http://localhost:4002/assets/remoteEntry.js",
+    "name": "mfe2",
+    "module": "./bootstrap",
+    "format": "esm",
+    "bundler": "vite"
+  }
+]

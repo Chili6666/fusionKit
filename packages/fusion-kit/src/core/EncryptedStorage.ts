@@ -19,10 +19,10 @@ export class EncryptedStorage {
     try {
       // Convert value to string if it's an object
       const stringValue = typeof value === 'object' ? JSON.stringify(value) : String(value);
-      
+
       // Encrypt the value
       const encryptedValue = CryptoJS.AES.encrypt(stringValue, this.encryptionKey).toString();
-      
+
       // Store the encrypted value
       sessionStorage.setItem(key, encryptedValue);
     } catch (error) {
@@ -39,7 +39,7 @@ export class EncryptedStorage {
   public getItem<T>(key: string): T | null {
     try {
       const encryptedValue = sessionStorage.getItem(key);
-      
+
       if (!encryptedValue) {
         return null;
       }

@@ -14,7 +14,8 @@
     "fusion-kit": "file:../fusion-kit",
     "fusion-kit-contracts": "file:../fusion-kit-contracts",
     "fusion-kit-keycloak": "file:../fusion-kit-keycloak",
-    "fusion-kit-auth0": "file:../fusion-kit-auth0"
+    "fusion-kit-auth0": "file:../fusion-kit-auth0",
+    "fusion-kit-modul-federation": "file:../fusion-kit-modul-federation"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.2.1",

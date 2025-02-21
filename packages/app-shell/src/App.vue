@@ -44,7 +44,7 @@ import { useRouter } from "vue-router";
 const router = useRouter();
 
 // Inject the shellApp provided in main.ts
-const shellApp = inject<FusionApp>("shellApp");
+const shellApp = inject<FusionApp>("fusionApp");
 
 if (!shellApp) {
   throw new Error("shellApp not found");

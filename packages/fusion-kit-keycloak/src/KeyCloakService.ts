@@ -1,8 +1,5 @@
-import Keycloak from "keycloak-js";
-import {
-  AuthService,
-  AuthUserProfile,
-} from "fusion-kit-contracts";
+import Keycloak from 'keycloak-js';
+import { AuthService, AuthUserProfile } from 'fusion-kit-contracts';
 import { KeyCloakConfig } from './KeyCloakConfig';
 
 /**
@@ -24,7 +21,7 @@ export class KeyCloakService implements AuthService {
   public async init(): Promise<boolean> {
     try {
       const authenticated = await this.keycloak.init({
-        onLoad: "login-required",
+        onLoad: 'login-required',
         checkLoginIframe: false,
       });
 
@@ -33,7 +30,7 @@ export class KeyCloakService implements AuthService {
       }
       return authenticated;
     } catch (error) {
-      console.error("Keycloak initialization failed", error);
+      console.error('Keycloak initialization failed', error);
       return false;
     }
   }
@@ -51,8 +48,7 @@ export class KeyCloakService implements AuthService {
   }
 
   public get isLoggedin(): boolean {
-    if(this.keycloak.authenticated)
-      return true;
+    if (this.keycloak.authenticated) return true;
     return false;
   }
 
@@ -60,7 +56,7 @@ export class KeyCloakService implements AuthService {
    * Starts the token refresh process.
    */
   private startTokenRefresh(): void {
-    console.log("Starting token refresh");
+    console.log('Starting token refresh');
     // Clear any existing interval to prevent multiple refreshes
     if (this.refreshInterval) {
       clearInterval(this.refreshInterval);
@@ -72,12 +68,12 @@ export class KeyCloakService implements AuthService {
         // Check if token needs refreshing
         const refreshed = await this.keycloak.updateToken(30); // Refresh if expires in less than 30 seconds
         if (refreshed) {
-          console.log("Token refreshed successfully");
+          console.log('Token refreshed successfully');
         } else {
-          console.log("Token does not need to be refreshed");
+          console.log('Token does not need to be refreshed');
         }
       } catch (error) {
-        console.error("Failed to refresh token", error);
+        console.error('Failed to refresh token', error);
         this.stopTokenRefresh(); // Stop refreshing if there's a persistent error
       }
     }, 60000); // 60 seconds

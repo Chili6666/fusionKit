@@ -1,13 +1,7 @@
-import {
-  AuthService,
-  FrameAdapter,
-  Logger,
-  LoggerOptions,
-} from "fusion-kit-contracts";
-import { ConsoleLogger } from "../services/ConsoleLogger";
-import { UserFeedback } from "./UserFeedBack";
+import { AuthService, FrameAdapter, Logger, LoggerOptions, RemoteModuleManager } from 'fusion-kit-contracts';
+import { ConsoleLogger } from '../services/ConsoleLogger';
+import { UserFeedback } from './UserFeedBack';
 import { ConfigurationManager } from './ConfigurationManager';
-import { FederationStrategyManager } from './FederationStrategyManager';
 import { EncryptedStorage } from './EncryptedStorage';
 
 /**
@@ -18,8 +12,8 @@ export class FusionApp {
   private _auth: AuthService;
   private _logger: Logger | undefined;
   private _isBusy: boolean = false;
-  private _configurationManager : ConfigurationManager | undefined;
-  private _federationStrategyManager: FederationStrategyManager | undefined;
+  private _configurationManager: ConfigurationManager | undefined;
+  private _remoteModuleManager: RemoteModuleManager | undefined;
   private _encryptedStorage: EncryptedStorage | undefined;
   private _isBusyCallback: ((isBusy: boolean) => void) | undefined;
   private _userFeedback: UserFeedback = new UserFeedback();
@@ -33,7 +27,6 @@ export class FusionApp {
     this._name = name;
     this._auth = auth;
     this._configurationManager = configurationManager;
-    this._federationStrategyManager = new FederationStrategyManager();
   }
 
   /**
@@ -41,7 +34,7 @@ export class FusionApp {
    * @param frameAdapter
    */
   public registerFrameAdapter(frameAdapter: FrameAdapter): void {
-    this.logger?.info("Registering frame adapter");
+    this.logger?.info('Registering frame adapter');
     this._userFeedback.registerFrameAdapter(frameAdapter);
   }
 
@@ -86,7 +79,7 @@ export class FusionApp {
   }
 
   public set encryptedStorage(encryptedStorage: EncryptedStorage | undefined) {
-    this._encryptedStorage = encryptedStorage
+    this._encryptedStorage = encryptedStorage;
   }
 
   /**
@@ -99,8 +92,13 @@ export class FusionApp {
   /**
    * Gets the federation strategy manager used by the application.
    */
-  public get federationStrategyManager(): FederationStrategyManager | undefined {
-    return this._federationStrategyManager;
+  public get remoteModuleManager(): RemoteModuleManager | undefined {
+    return this._remoteModuleManager;
+  }
+
+  public set remoteModuleManager(remoteModuleManager: RemoteModuleManager | undefined) {
+    this._remoteModuleManager = remoteModuleManager;
+    console.log('Remote Module Manager is set');
   }
 
   /**
