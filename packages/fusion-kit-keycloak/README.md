@@ -72,21 +72,3 @@ Gets the authentication token.
 Checks if the user is logged in.
 
 - **Returns:** A boolean indicating whether the user is logged in.
-
-#### `startTokenRefresh(): void`
-
-Starts the token refresh process. This method is called internally after successful authentication.
-
-#### `stopTokenRefresh(): void`
-
-Stops the token refresh process. This method is called internally when there is a persistent error during token refresh.
-
-### Private Methods
-
-#### `startTokenRefresh(): void`
-
-Starts the token refresh process.
-
-#### `stopTokenRefresh(): void`
-
-Stops the token refresh process.
