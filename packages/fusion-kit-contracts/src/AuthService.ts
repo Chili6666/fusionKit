@@ -27,5 +27,8 @@ export interface AuthService {
    */
   getUserInfo(): Promise<AuthUserProfile | undefined>;
 
+  /**
+   * Checks if the user is logged in.
+   */
   get isLoggedin(): boolean;
 }

@@ -1,7 +1,10 @@
-# Fusion Contracts
+# Fusion Kit Contracts
 
-
-
+- [AuthService Interface](#authservice-interface)
+- [Logger Interface](#logger-interface)
+- [FrameAdapter Interface](#frameadapter-interface)
+- [RemoteModuleManager](#remotemodulemanager)
+- [Module Configuration](#module-configuration)
 
 ## AuthService Interface
 
@@ -11,9 +14,9 @@ The `AuthService` interface defines methods and properties for managing authenti
 
 #### `init(): Promise<boolean>`
 
-Initializes the authentication service.
+Initializes the authentication service and shows the login screen for the selected Authservice
 
-- **Returns:** A promise that resolves to a boolean indicating whether the initialization was successful.
+- **Returns:** A promise that resolves to a boolean indicating whether the Login was successful.
 
 #### `logout(): Promise<void>`
 
@@ -84,7 +87,7 @@ Logs a debug message. This is used for detailed information useful for debugging
 
 ## FrameAdapter Interface
 
-The `FrameAdapter` interface defines methods for displaying various types of notifications, message boxes, and toasts within an application.
+The `FrameAdapter` interface defines methods for displaying various types of notifications, message boxes, and toasts within an application. It'S the glue between the FusionApp and the UI
 
 ### Methods
 
@@ -124,6 +127,47 @@ Displays a toast message.
   - `toastType`: The type of toast to display (e.g., success, error).
 
 ## RemoteModuleManager
+
+The `RemoteModuleManager` interface is responsible for loading remote modules and managing their lifecycle.
+
+### Methods
+
+#### `loadRemoteModules(moduleConfigurations: RemoteModuleConfiguration[]): Promise<void>`
+
+Loads all remote modules.
+
+- **Parameters:**
+  - `moduleConfigurations`: An array of configurations for the remote modules to be loaded.
+- **Returns:** A promise that resolves when all remote modules are loaded.
+
+#### `getRemoteModuleConfiguration(moduleName: string): RemoteModuleConfiguration | undefined`
+
+Gets the configuration of a specific remote module.
+
+- **Parameters:**
+  - `moduleName`: The name of the remote module.
+- **Returns:** The configuration of the specified remote module, or `undefined` if not found.
+
+#### `getRemoteModuleConfigurations(): RemoteModuleConfiguration[]`
+
+Gets a list of all remote module configurations.
+
+- **Returns:** An array of all remote module configurations.
+
+#### `getLoadedRemoteModules(): Module[]`
+
+Gets a list of all loaded remote modules.
+
+- **Returns:** An array of all loaded remote modules.
+
+#### `getLoadedRemoteModule(moduleName: string): Module | undefined`
+
+Gets a specific loaded remote module.
+
+- **Parameters:**
+  - `moduleName`: The name of the remote module.
+- **Returns:** The specified loaded remote module, or `undefined` if not found.
+
 
 ## Module Configuration
 

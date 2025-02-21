@@ -7,6 +7,7 @@ This monorepo contains multiple packages for building a microfrontend applicatio
 - `fusion-kit-contracts`: Common interfaces and types.
 - `fusion-kit-auth0`: Auth0 authentication service.
 - `fusion-kit-keycloak`: Keycloak authentication service.
+- `fusion-kit-module-federation`: Module Federation based Microservice implementation.
 
 ## Packages
 
