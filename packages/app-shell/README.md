@@ -14,9 +14,9 @@ The project integrates with multiple authentication providers, including Keycloa
 
 Configuration loading and management are handled efficiently, allowing the application to load configurations dynamically. This ensures that changes to configurations can be applied without the need for recompilation.
 
-### Session Storage
+### Encrypted Session Storage
 
-Session storage is managed to maintain user sessions and other relevant data across different parts of the application. This ensures a smooth user experience by preserving the state between sessions.
+The Encrypted Session storage isupports the developer to manage relevant data across different parts of the application. This ensures a smooth user experience by preserving the state between sessions.
 
 ### Logging
 
