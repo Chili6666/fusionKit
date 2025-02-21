@@ -1,4 +1,4 @@
-# Fusion Kit Contracts
+# Fusion Kit - Contracts
 
 - [AuthService Interface](#authservice-interface)
 - [Logger Interface](#logger-interface)

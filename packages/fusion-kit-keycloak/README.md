@@ -1,5 +1,5 @@
 
-# Fusion Kit Keycloak
+# Fusion Kit - Keycloak
 
 This library implements the `AuthService` interface for Keycloak authentication, providing configuration and service classes to handle authentication processes.
 
