@@ -11,6 +11,6 @@
     "forceConsistentCasingInFileNames": true, // Disallows inconsistently-cased references to the same file.
     "moduleResolution": "bundler" // Specifies the module resolution strategy. "bundler" is used for bundler tools like Webpack.
   },
-  "include": ["src/**/*"], // Specifies the files to include in the compilation.
+  "include": ["src/**/*.ts"], // Specifies the files to include in the compilation.
   "exclude": ["node_modules", "**/*.spec.ts"] // Specifies the files to exclude from the compilation.
 }

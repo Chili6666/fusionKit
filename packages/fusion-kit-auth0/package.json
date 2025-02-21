@@ -7,7 +7,8 @@
   "scripts": {
     "build": "tsc",
     "watch": "tsc -w",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint:fix": "eslint --fix --ext ts,tsx src/",
+    "lint": "eslint --ext ts,tsx src/"
   },
   "keywords": [
     "microfrontend",
@@ -21,6 +22,9 @@
   },
   "devDependencies": {
     "@types/node": "^20.0.0",
-    "typescript": "^5.2.2"
+    "typescript": "^5.2.2",
+    "@typescript-eslint/eslint-plugin": "^7.18.0",
+    "@typescript-eslint/parser": "^7.18.0",
+    "eslint": "^8.57.1"
   }
 }

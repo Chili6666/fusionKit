@@ -1,5 +1,5 @@
 export class ConfigurationManager {
-  private contentMap = new Map<string, any>();
+  private contentMap = new Map<string, unknown>();
 
   public constructor(private configurationDirectory: string) {
     // Ensure the configuration directory ends with a '/'

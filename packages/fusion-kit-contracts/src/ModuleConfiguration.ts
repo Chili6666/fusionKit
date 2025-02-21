@@ -1,5 +1,5 @@
-export type RemoteModuleConfigurationFormat = "esm" | "systemjs" | "var";
-export type RemoteModuleConfigurationBundler = "vite" | "webpack";
+export type RemoteModuleConfigurationFormat = 'esm' | 'systemjs' | 'var';
+export type RemoteModuleConfigurationBundler = 'vite' | 'webpack';
 
 //The `ModuleConfiguration` interface defines the structure for configuring a module that is loaded from a remote server.
 //This configuration includes details such as the URL, name, module type, format, and bundler.

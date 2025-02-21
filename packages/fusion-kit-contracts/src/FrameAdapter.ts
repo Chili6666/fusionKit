@@ -2,7 +2,7 @@ import {
   MessageBoxMessage,
   NotificationTypes,
   ToastTypes,
-} from "./TypeDefinitions";
+} from './TypeDefinitions';
 
 export interface FrameAdapter {
   showNotification(

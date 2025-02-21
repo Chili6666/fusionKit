@@ -15,7 +15,7 @@ export class EncryptedStorage {
    * @param key The storage key
    * @param value The value to encrypt and store
    */
-  public setItem(key: string, value: any): void {
+  public setItem(key: string, value: unknown): void {
     try {
       // Convert value to string if it's an object
       const stringValue = typeof value === 'object' ? JSON.stringify(value) : String(value);

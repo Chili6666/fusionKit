@@ -2,7 +2,7 @@ import { Module, RemoteModuleConfiguration, RemoteModuleManager } from 'fusion-k
 import { loadDynamicRemoteModule } from './utils/remoteLoader';
 
 interface LoadedModule {
-  module: any;
+  module: unknown;
   name: string;
 }
 

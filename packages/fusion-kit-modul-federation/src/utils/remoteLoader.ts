@@ -2,7 +2,7 @@ import {
   __federation_method_getRemote as getRemote,
   __federation_method_setRemote as setRemote,
   __federation_method_unwrapDefault as unwrapModule,
-  // @ts-ignore
+  // @ts-expect-error test
 } from '__federation__';
 
 //https://vite.dev/guide/api-plugin#virtual-modules-convention

@@ -1,1 +1,1 @@
-export * from "./FederationModuleManager";
+export * from './FederationModuleManager';
