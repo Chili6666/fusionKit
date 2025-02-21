@@ -1,15 +1,16 @@
 {
   "compilerOptions": {
-    "target": "ESNext",
-    "module": "ESNext",
-    "declaration": true,
-    "outDir": "./dist",
-    "strict": true,
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "moduleResolution": "bundler",
+    "target": "ESNext", // Specifies the ECMAScript target version. "ESNext" means the latest ECMAScript version.
+    "module": "ESNext", // Specifies the module code generation. "ESNext" means using the latest module standard.
+    "declaration": true, // Generates corresponding '.d.ts' files for TypeScript files.
+    "outDir": "./dist", // Redirects output structure to the specified directory.
+    "strict": true, // Enables all strict type-checking options.
+    "esModuleInterop": true, // Enables interoperability between CommonJS and ES Modules.
+    "sourceMap": true, // Generates source map files for debugging.
+    "skipLibCheck": true, // Skips type checking of declaration files.
+    "forceConsistentCasingInFileNames": true, // Disallows inconsistently-cased references to the same file.
+    "moduleResolution": "bundler" // Specifies the module resolution strategy. "bundler" is used for bundler tools like Webpack.
   },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules", "**/*.spec.ts"]
+  "include": ["src/**/*"], // Specifies the files to include in the compilation.
+  "exclude": ["node_modules", "**/*.spec.ts"] // Specifies the files to exclude from the compilation.
 }
