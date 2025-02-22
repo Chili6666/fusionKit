@@ -1,7 +1,5 @@
 # FusionKit Documentation
 
-# FusionKit Documentation
-
 ## Table of Contents
 
 - [FusionApp](#fusionapp)
