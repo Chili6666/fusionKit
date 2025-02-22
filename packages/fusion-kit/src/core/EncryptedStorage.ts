@@ -5,8 +5,8 @@ export class EncryptedStorage {
 
   //TODO check the encryption key for length and complexity
   constructor(encryptionKey: string) {
-    if (!encryptionKey) {
-      throw new Error('Encryption key is required');
+    if (typeof encryptionKey !== 'string' || encryptionKey.trim() === '') {
+      throw new Error('Invalid encryption key: must be a non-empty string');
     }
     this.encryptionKey = encryptionKey;
   }
@@ -17,6 +17,10 @@ export class EncryptedStorage {
    * @param value The value to encrypt and store
    */
   public setItem(key: string, value: unknown): void {
+    if (typeof key !== 'string' || key.trim() === '') {
+      throw new Error('Invalid key: must be a non-empty string');
+    }
+
     try {
       // Convert value to string if it's an object
       const stringValue = typeof value === 'object' ? JSON.stringify(value) : String(value);
@@ -38,6 +42,10 @@ export class EncryptedStorage {
    * @returns The decrypted value
    */
   public getItem<T>(key: string): T | null {
+    if (typeof key !== 'string' || key.trim() === '') {
+      throw new Error('Invalid key: must be a non-empty string');
+    }
+
     try {
       const encryptedValue = sessionStorage.getItem(key);
 
@@ -65,7 +73,11 @@ export class EncryptedStorage {
    * Removes an item from sessionStorage
    * @param key The storage key to remove
    */
-  removeItem(key: string): void {
+  public removeItem(key: string): void {
+    if (typeof key !== 'string' || key.trim() === '') {
+      throw new Error('Invalid key: must be a non-empty string');
+    }
+
     try {
       sessionStorage.removeItem(key);
     } catch (error) {
