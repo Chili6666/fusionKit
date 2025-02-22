@@ -1,4 +1,3 @@
-
 export interface Configuration {
   application: {
     cultureInfo: string;
@@ -20,21 +19,20 @@ export interface Configuration {
 
 const state: Configuration = {
   application: {
-    cultureInfo: "en-us",
+    cultureInfo: 'en-us',
     autoLogoutTime: 10, // min
   },
   keycloak: {
-    realm: "",
-    url: "",
-    clientid: "",
+    realm: '',
+    url: '',
+    clientid: '',
   },
   auth0: {
-    domain: "",
-    redirectUrl: "",
-    clientid: "",
+    domain: '',
+    redirectUrl: '',
+    clientid: '',
   },
 };
-
 
 export const useConfiguration = (): Configuration => {
   return {

@@ -25,7 +25,11 @@ const configManager = await new ConfigurationManagerBuilder()
   .build();
 
 //create a FactoryCallback
-const authServiceFactory = () => AuthFactory.getAuthService(configManager);
+const authServiceFactory = async () => {
+  const authService = await AuthFactory.getAuthService(configManager, false);
+  if (!authService) throw new Error("Failed to initialize AuthService");
+  return authService;
+};
 
 //create a instance of the FusionApp. Keep in mind that only the Appname and the Authentication is mandatory. Everything else is optional
 const fusionApp = await new FusionAppBuilder()
