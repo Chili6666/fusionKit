@@ -1,3 +1,4 @@
+// filepath: /d:/dev/myGithub/fusionKit/packages/app-shell/src/App.vue
 <template>
   <div class="shell-container">
     <div class="toolbar">
@@ -19,16 +20,23 @@
     <router-view></router-view>
 
     <LoggerDisplay class="logger"></LoggerDisplay>
+
+    <Toast v-if="toast.visible" :message="toast.message" :type="toast.type" :duration="toast.duration" />
+
+    <MessageBox :visible="messageBox.visible" :header="messageBox.header" :text="messageBox.text" @close="messageBox.visible = false" />
   </div>
 </template>
 
 <script setup lang="ts">
 import LoggerDisplay from './components/LoggerDisplay.vue';
-import { inject, onMounted } from 'vue';
+import Toast from './components/Toast.vue';
+import MessageBox from './components/MessageBox.vue';
+import { inject, onMounted, ref } from 'vue';
 import type { FusionApp } from 'fusion-kit';
 import { AppFrameAdapter } from './utils/AppFrameAdapter';
 import { useRouter } from 'vue-router';
 import type { RemoteModuleConfiguration } from 'fusion-kit-contracts';
+
 const router = useRouter();
 
 // Inject the shellApp provided in main.ts
@@ -37,7 +45,8 @@ const fusionApp = inject<FusionApp>('fusionApp');
 if (!fusionApp) {
   throw new Error('shellApp not found');
 }
-//register the frame adapter
+
+// Register the frame adapter
 fusionApp.registerFrameAdapter(new AppFrameAdapter());
 
 const navigateToHome = () => {
@@ -50,15 +59,41 @@ const handleLogout = async () => {
 };
 
 const handleShowMessageBox = () => {
-  fusionApp.userFeedback.showMessageBox('This is a message box', [{ message: 'Hello from Shell App', type: 'info' }], 'cancel', 'ok');
+  messageBox.value = {
+    visible: true,
+    header: 'Message Box',
+    text: 'Hello from Shell App',
+  };
 };
 
+const messageBox = ref({
+  visible: false,
+  header: '',
+  text: '',
+});
 const handleShowNotification = () => {
   fusionApp.userFeedback.showNotification('Hello from Shell App', 'info');
 };
 
+const toast = ref({
+  visible: false,
+  message: '',
+  type: 'info' as 'info' | 'success' | 'warning' | 'error',
+  duration: 3000,
+});
+
 const handleShowToast = () => {
-  fusionApp.userFeedback.showToast('Hello from Shell App', 'info');
+  console.log('Show Toast' + toast.value.visible);
+  toast.value = {
+    visible: true,
+    message: 'Hello from Shell App',
+    type: 'info',
+    duration: 3000,
+  };
+
+  setTimeout(() => {
+    toast.value.visible = false;
+  }, toast.value.duration);
 };
 
 // Load microfrontends on component mount
@@ -77,7 +112,8 @@ onMounted(async () => {
     console.error('Configuration Manager is not initialized');
     return;
   }
-  //load modules from configuration
+
+  // Load modules from configuration
   const dynamicRemotes = fusionApp.configurationManager.getContent<RemoteModuleConfiguration[]>('dynamicRemotes');
 
   if (!dynamicRemotes) {
@@ -86,7 +122,7 @@ onMounted(async () => {
   }
 
   // TODO - check if module is already loaded
-  // initialize remote modules.
+  // Initialize remote modules.
   await fusionApp.remoteModuleManager.loadRemoteModules(dynamicRemotes);
 });
 </script>
