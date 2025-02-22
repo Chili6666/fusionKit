@@ -47,15 +47,15 @@ export class FederationModuleManager implements RemoteModuleManager {
   /**
    * Get all remote module configurations
    */
-  public get getRemoteModuleConfigurations(): RemoteModuleConfiguration[] {
-    return this._moduleConfigurations;
+  public getRemoteModuleConfigurations(): RemoteModuleConfiguration[] {
+    return [...this._moduleConfigurations];
   }
 
   /**
    * Get all loaded remote modules
    */
-  public get getLoadedRemoteModules(): Module[] {
-    return [];
+  public getLoadedRemoteModules(): Module[] {
+    return []; //TODO add implementation
     //return this._remoteModules;
   }
 

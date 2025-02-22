@@ -18,7 +18,7 @@
     </div>
 
     <router-view></router-view>
-    
+
     <LoggerDisplay class="logger"></LoggerDisplay>
     <Toast v-if="toast.visible" :message="toast.message" :type="toast.type" :duration="toast.duration" />
     <MessageBox :visible="messageBox.visible" :header="messageBox.header" :text="messageBox.text" @close="messageBox.visible = false" />
@@ -124,7 +124,13 @@ onMounted(async () => {
   await fusionApp.remoteModuleManager.loadRemoteModules(dynamicRemotes);
 
   const userInfo = await fusionApp.auth.getUserInfo();
-  console.dir(userInfo);
+  if (userInfo?.email) {
+    fusionApp.logger?.info(userInfo.email);
+  }
+
+  fusionApp.remoteModuleManager.getRemoteModuleConfigurations().forEach(config => {
+    fusionApp.logger?.info(config.name);
+  });
 });
 </script>
 

@@ -22,13 +22,13 @@ export interface RemoteModuleManager {
    * Gets a list of all remote module configurations.
    * @returns An array of all remote module configurations.
    */
-  getRemoteModuleConfigurations: RemoteModuleConfiguration[];
+  getRemoteModuleConfigurations(): RemoteModuleConfiguration[];
 
   /**
    * Gets a list of all loaded remote modules.
    * @returns An array of all loaded remote modules.
    */
-  getLoadedRemoteModules: Module[];
+  getLoadedRemoteModules(): Module[];
 
   /**
    * Gets a specific loaded remote module.
