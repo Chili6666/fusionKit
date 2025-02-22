@@ -1,5 +1,5 @@
 <template>
-  <div id="mycontainer"></div>
+  <div id="mycontainer" class="full-height"></div>
 </template>
 
 <script setup lang="ts">
@@ -60,3 +60,13 @@ const loadModule = () => {
   }
 };
 </script>
+
+<style scoped>
+.full-height {
+  height: 100%;
+}
+
+#mycontainer > * {
+  height: 100%;
+}
+</style>

@@ -18,11 +18,9 @@
     </div>
 
     <router-view></router-view>
-
+    
     <LoggerDisplay class="logger"></LoggerDisplay>
-
     <Toast v-if="toast.visible" :message="toast.message" :type="toast.type" :duration="toast.duration" />
-
     <MessageBox :visible="messageBox.visible" :header="messageBox.header" :text="messageBox.text" @close="messageBox.visible = false" />
   </div>
 </template>
@@ -124,6 +122,9 @@ onMounted(async () => {
   // TODO - check if module is already loaded
   // Initialize remote modules.
   await fusionApp.remoteModuleManager.loadRemoteModules(dynamicRemotes);
+
+  const userInfo = await fusionApp.auth.getUserInfo();
+  console.dir(userInfo);
 });
 </script>
 
@@ -142,16 +143,9 @@ onMounted(async () => {
   border-bottom: 1px solid #ccc;
 }
 
-.content {
-  flex: 1;
-  padding: 20px;
-  overflow: auto;
-}
-
 .logger {
   border-top: 1px solid #ccc;
   padding: 10px;
-  /* width: 100%; */
 }
 
 .icon {

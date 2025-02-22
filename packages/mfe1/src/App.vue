@@ -16,9 +16,12 @@ import Navigation from "./components/Navigation.vue";
 .mfe1 {
   background-color: rgb(254, 254, 133);
   height: 100%;
+  display: grid;
+  grid-template-rows: auto 1fr;
 }
 .container {
   display: grid;
   grid-template-columns: auto 1fr;
+  height: 100%;
 }
 </style>
