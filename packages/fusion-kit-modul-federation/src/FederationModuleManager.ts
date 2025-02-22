@@ -55,8 +55,7 @@ export class FederationModuleManager implements RemoteModuleManager {
    * Get all loaded remote modules
    */
   public getLoadedRemoteModules(): Module[] {
-    return []; //TODO add implementation
-    //return this._remoteModules;
+    return this._remoteModules.map(loadedModule => loadedModule.module as Module);
   }
 
   /**

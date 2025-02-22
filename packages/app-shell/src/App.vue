@@ -128,8 +128,9 @@ onMounted(async () => {
     fusionApp.logger?.info(userInfo.email);
   }
 
-  fusionApp.remoteModuleManager.getRemoteModuleConfigurations().forEach(config => {
-    fusionApp.logger?.info(config.name);
+
+  fusionApp.remoteModuleManager.getLoadedRemoteModules().forEach(module => {
+    fusionApp.logger?.info( module.title);
   });
 });
 </script>
