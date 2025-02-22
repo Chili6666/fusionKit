@@ -1,5 +1,8 @@
 import { Logger, LoggerOptions } from 'fusion-kit-contracts';
 
+/**
+ * The ConsoleLogger class implements the Logger interface and provides the functionality to log messages to the console.
+ */
 export class ConsoleLogger implements Logger {
   constructor(private readonly logOption: LoggerOptions) {}
 

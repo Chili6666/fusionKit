@@ -2,15 +2,15 @@ import { ConfigurationManager } from '..';
 
 export class ConfigurationManagerBuilder {
   private configurationDirectory: string = '';
-  private filesToLoad: { filename: string; type: string }[] = [];
+  private filesToLoad: { filename: string; id: string }[] = [];
 
   withConfigurationDirectory(directory: string): ConfigurationManagerBuilder {
     this.configurationDirectory = directory;
     return this;
   }
 
-  withFileToLoad(filename: string, type: string): ConfigurationManagerBuilder {
-    this.filesToLoad.push({ filename, type });
+  withFileToLoad(filename: string, id: string): ConfigurationManagerBuilder {
+    this.filesToLoad.push({ filename, id: id });
     return this;
   }
 
@@ -22,7 +22,7 @@ export class ConfigurationManagerBuilder {
     const configManager = new ConfigurationManager(this.configurationDirectory);
 
     for (const file of this.filesToLoad) {
-      await configManager.loadJsonContent(file.filename, file.type);
+      await configManager.loadJsonContent(file.filename, file.id);
     }
 
     return configManager;

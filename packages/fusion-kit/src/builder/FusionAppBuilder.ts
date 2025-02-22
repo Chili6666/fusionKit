@@ -46,7 +46,8 @@ export class FusionAppBuilder {
     }
 
     const authService = await this.authServiceFactory();
-    const app = new FusionApp(this.name, authService, this.configManager);
+    const app = new FusionApp(this.name, authService);
+    if (this.configManager) app.configurationManager = this.configManager;
     if (this.logger) app.logger = this.logger;
     if (this.encryptedStorage) app.encryptedStorage = this.encryptedStorage;
     if (this.remoteModuleManager) app.remoteModuleManager = this.remoteModuleManager;

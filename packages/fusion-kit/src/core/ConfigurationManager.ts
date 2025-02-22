@@ -8,14 +8,14 @@ export class ConfigurationManager {
     }
   }
 
-  public async loadJsonContent(filename: string, type: string): Promise<void> {
+  public async loadJsonContent(filename: string, id: string): Promise<void> {
     // Combine the directory and filename to get the full path
     const url = `${this.configurationDirectory}${filename}`;
 
     try {
       // Check if content is already loaded
-      if (this.contentMap.has(type)) {
-        console.log(`Content of type ${type} already loaded`);
+      if (this.contentMap.has(id)) {
+        console.log(`Content with the identifier ${id} is already loaded.`);
         return;
       }
 
@@ -31,7 +31,7 @@ export class ConfigurationManager {
       }
 
       const content = await response.json();
-      this.contentMap.set(type, content);
+      this.contentMap.set(id, content);
 
       return content;
     } catch (error) {
@@ -39,7 +39,7 @@ export class ConfigurationManager {
     }
   }
 
-  public getContent<T>(type: string): T | undefined {
-    return this.contentMap.get(type) as T;
+  public getContent<T>(id: string): T | undefined {
+    return this.contentMap.get(id) as T;
   }
 }

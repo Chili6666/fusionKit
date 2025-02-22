@@ -1,5 +1,16 @@
 # FusionKit Documentation
 
+# FusionKit Documentation
+
+## Table of Contents
+
+- [FusionApp](#fusionapp)
+- [ConfigurationManager](#configurationmanager)
+- [EncryptedStorage](#encryptedstorage)
+- [UserFeedback](#userfeedback)
+- [ConfigurationManagerBuilder](#configurationmanagerbuilder)
+- [FusionAppBuilder](#fusionappbuilder)
+
 ## FusionApp
 
 The `FusionApp` class represents a microfrontend application. It provides various functionalities such as authentication, configuration management, logging, and user feedback.
@@ -7,22 +18,21 @@ The `FusionApp` class represents a microfrontend application. It provides variou
 ### Constructor
 
 ```typescript
-constructor(name: string, auth: AuthService, configurationManager: ConfigurationManager | undefined)
+constructor(name: string, auth: AuthService)
 ```
 
 - `name`: The name of the application.
 - `auth`: The authentication service used by the application.
-- `configurationManager`: The configuration manager used by the application (optional).
 
 ### Methods
 
 #### `registerFrameAdapter(frameAdapter: FrameAdapter): void`
 
-Registers a frame adapter for displaying notifications.
+Registers a frame adapter for automatic interactions between the shell and the FusionApp. e.g. Toast, Messagebox,...
 
 #### `get name(): string`
 
-Gets the name of the microfrontend application.
+Gets the name of the application.
 
 #### `get auth(): AuthService`
 
@@ -32,9 +42,13 @@ Gets the authentication service used by the application.
 
 Gets the configuration manager used by the application.
 
+#### `set configurationManager(configurationManager: ConfigurationManager): void`
+
+Sets the configurationManager used by the application.
+
 #### `get logger(): Logger | undefined`
 
-Gets the logger used by the application. If no logger is set, a new `ConsoleLogger` is created.
+Gets the logger used by the application. If no logger is set, a new deafult `ConsoleLogger` is created.
 
 #### `set logger(logger: Logger): void`
 
@@ -91,18 +105,13 @@ constructor(configurationDirectory: string)
 
 ### Methods
 
-#### `loadJsonContent(filename: string, type: string): Promise<void>`
+#### `loadJsonContent(filename: string, id: string): Promise<void>`
 
-Loads JSON content from a file and stores it in the content map.
+Loads JSON content from a file and stores it in the content map. Is accessable by it's id
 
-- `filename`: The name of the file to load.
-- `type`: The type of content being loaded.
+#### `getContent<T>(id: string): T | undefined`
 
-#### `getContent<T>(type: string): T | undefined`
-
-Gets the content of the specified type from the content map.
-
-- `type`: The type of content to retrieve.
+Gets the content of the specified id from the content map.
 
 ### Example
 
@@ -123,7 +132,7 @@ The `EncryptedStorage` class provides methods to store, retrieve, and manage enc
 constructor(encryptionKey: string)
 ```
 
-- `encryptionKey`: The key used for encryption and decryption.
+- `encryptionKey`: The key used for encryption and decryption. 
 
 ### Methods
 
@@ -219,4 +228,114 @@ const userFeedback = new UserFeedback();
 userFeedback.registerFrameAdapter(myFrameAdapter);
 userFeedback.showNotification('Welcome!', NotificationTypes.INFO);
 userFeedback.showToast('Operation successful', ToastTypes.SUCCESS);
+```
+
+
+## ConfigurationManagerBuilder
+
+The `ConfigurationManagerBuilder` class is used to build and configure an instance of `ConfigurationManager`.
+
+### Methods
+
+#### `withConfigurationDirectory(directory: string): ConfigurationManagerBuilder`
+
+Sets the configuration directory.
+
+- `directory`: The directory where configuration files are located.
+- Returns: The `ConfigurationManagerBuilder` instance.
+
+#### `withFileToLoad(filename: string, id: string): ConfigurationManagerBuilder`
+
+Adds a file to load during the build process.
+
+- `filename`: The name of the file to load.
+- `id`: The identifier of content being loaded.
+- Returns: The `ConfigurationManagerBuilder` instance.
+
+#### `build(): Promise<ConfigurationManager>`
+
+Builds and returns an instance of `ConfigurationManager`.
+
+- Returns: A promise that resolves to an instance of `ConfigurationManager`.
+
+### Example
+
+```typescript
+const builder = new ConfigurationManagerBuilder();
+const configManager = await builder
+  .withConfigurationDirectory('/config/')
+  .withFileToLoad('settings.json', 'settings')
+  .build();
+
+const settings = configManager.getContent<Settings>('settings');
+console.log(settings);
+```
+
+## FusionAppBuilder
+
+The `FusionAppBuilder` class is used to build and configure an instance of `FusionApp`.
+
+### Methods
+
+#### `withName(name: string): FusionAppBuilder`
+
+Sets the name of the application.
+
+- `name`: The name of the application.
+- Returns: The `FusionAppBuilder` instance.
+
+#### `withAuthFactory(authServiceFactory: () => Promise<AuthService>): FusionAppBuilder`
+
+Sets the authentication service factory.
+
+- `authServiceFactory`: A factory function that returns a promise resolving to an `AuthService` instance.
+- Returns: The `FusionAppBuilder` instance.
+
+#### `withConfigManager(configManager: ConfigurationManager): FusionAppBuilder`
+
+Sets the configuration manager.
+
+- `configManager`: An instance of `ConfigurationManager`.
+- Returns: The `FusionAppBuilder` instance.
+
+#### `withLogger(logger: Logger): FusionAppBuilder`
+
+Sets the logger.
+
+- `logger`: An instance of `Logger`.
+- Returns: The `FusionAppBuilder` instance.
+
+#### `withEncryptedStorage(encryptedStorage: EncryptedStorage): FusionAppBuilder`
+
+Sets the encrypted storage.
+
+- `encryptedStorage`: An instance of `EncryptedStorage`.
+- Returns: The `FusionAppBuilder` instance.
+
+#### `withRemoteModuleManager(remoteModuleManager: RemoteModuleManager): FusionAppBuilder`
+
+Sets the remote module manager.
+
+- `remoteModuleManager`: An instance of `RemoteModuleManager`.
+- Returns: The `FusionAppBuilder` instance.
+
+#### `build(): Promise<FusionApp>`
+
+Builds and returns an instance of `FusionApp`.
+
+- Returns: A promise that resolves to an instance of `FusionApp`.
+
+### Example
+
+```typescript
+const builder = new FusionAppBuilder();
+const fusionApp = await builder
+  .withName('MyApp')
+  .withAuthFactory(() => authServiceFactory())
+  .withConfigManager(configManager)
+  .withLogger(logger)
+  .withEncryptedStorage(encryptedStorage)
+  .withRemoteModuleManager(remoteModuleManager)
+  .build();
+
 ```

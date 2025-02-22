@@ -3,6 +3,7 @@ import CryptoJS from 'crypto-js';
 export class EncryptedStorage {
   private readonly encryptionKey: string;
 
+  //TODO check the encryption key for length and complexity
   constructor(encryptionKey: string) {
     if (!encryptionKey) {
       throw new Error('Encryption key is required');

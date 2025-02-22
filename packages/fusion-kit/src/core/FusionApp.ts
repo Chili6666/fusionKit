@@ -23,10 +23,9 @@ export class FusionApp {
    * @param name - The name of the application.
    * @param auth - The authentication service used by the application.
    */
-  constructor(name: string, auth: AuthService, configurationManager: ConfigurationManager | undefined) {
+  constructor(name: string, auth: AuthService) {
     this._name = name;
     this._auth = auth;
-    this._configurationManager = configurationManager;
   }
 
   /**
@@ -56,6 +55,10 @@ export class FusionApp {
 
   public get configurationManager(): ConfigurationManager | undefined {
     return this._configurationManager;
+  }
+
+  public set configurationManager(configurationManager: ConfigurationManager | undefined) {
+    this._configurationManager = configurationManager;
   }
 
   /**
