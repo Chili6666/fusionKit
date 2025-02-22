@@ -53,22 +53,22 @@ export const description = "This is a micro frontend module 2";
 
 export const menuItems = [
   {
-    id: "home",
-    title: "Home",
+    id: "dus",
+    title: "Airport DUS",
     canExecute: true,
-    icon: "home",
+    icon: "airportDUS",
     execute: () => {
-      console.log("Home clicked");
+      console.log("show DUS");
     },
     menuItems: [],
   },
   {
-    id: "about",
-    title: "About",
+    id: "fra",
+    title: "Airport FRA",
     canExecute: true,
-    icon: "info",
+    icon: "airportFRA",
     execute: () => {
-      console.log("About clicked");
+      console.log("show FRA");
     },
     menuItems: [],
   },

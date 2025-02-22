@@ -27,7 +27,7 @@ export interface ModuleMenuItem {
   title: string;
   canExecute: boolean;
   icon: string;
-  exccute: () => void;
+  execute: () => void;
   menuItems: ModuleMenuItem[];
 }
 

@@ -37,6 +37,10 @@ export class FusionApp {
     this._userFeedback.registerFrameAdapter(frameAdapter);
   }
 
+  public get frameAdapter(): FrameAdapter | undefined {
+    return this._userFeedback.frameAdapter;
+  }
+
   /**
    * Gets the name of the microfrontend application.
    * @returns The name of the application.

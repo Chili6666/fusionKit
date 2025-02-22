@@ -5,12 +5,30 @@ import type {
   ToastTypes,
 } from "fusion-kit-contracts";
 
+interface AppMethods {
+  handleShowToast: (message: string, type: ToastTypes) => void;
+  handleShowNotification: (message: string | undefined, type: NotificationTypes) => void;
+  handleShowMessageBox: (title: string, messages: MessageBoxMessage[]) => void;
+}
+
 export class AppFrameAdapter implements FrameAdapter {
+  private _shell: AppMethods;
+
+  constructor(shell: AppMethods) {
+    this._shell = shell;
+  }
+
   public showNotification(
     message: string | undefined,
     notificationType: NotificationTypes
   ): void {
-    console.log(`Notification: ${message} ${notificationType}`);
+    if (!this._shell) return;
+    if (typeof this._shell.handleShowNotification === 'function') {
+      console.log('showNotification', message, notificationType);
+      this._shell.handleShowNotification(message, notificationType);
+    } else {
+      console.error('handleShowNotification method not found on shell');
+    }
   }
 
   public showNotifications(
@@ -30,15 +48,26 @@ export class AppFrameAdapter implements FrameAdapter {
   public showMessageBox(
     title: string,
     messages: MessageBoxMessage[],
-    cancelButtonText: string,
-    confirmButtonText: string,
-    confirmCallback?: () => void,
-    cancelCallback?: () => void
+    _cancelButtonText?: string,
+    _confirmButtonText?: string,
+    _confirmCallback?: () => void,
+    _cancelCallback?: () => void
   ): void {
-    console.log(`MessageBox: ${title}  ${messages} ${cancelButtonText} ${confirmButtonText} ${confirmCallback} ${cancelCallback}`);
+    if (!this._shell) return;
+    if (typeof this._shell.handleShowMessageBox === 'function') {
+      this._shell.handleShowMessageBox(title, messages);
+    } else {
+      console.error('handleShowMessageBox method not found on shell');
+    }
   }
 
   public showToast(message: string, toastType: ToastTypes): void {
-    console.log(`Toast: ${message} ${toastType}`);
+    if (!this._shell) return;
+
+    if (typeof this._shell.handleShowToast === 'function') {
+      this._shell.handleShowToast(message, toastType);
+    } else {
+      console.error('handleShowToast method not found on shell');
+    }
   }
 }

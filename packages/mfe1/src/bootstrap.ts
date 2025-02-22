@@ -55,22 +55,25 @@ export const description = "This is a micro frontend module 1";
 
 export const menuItems = [
   {
-    id: "home",
-    title: "Home",
+    id: "flights",
+    title: "Show Flights",
     canExecute: true,
-    icon: "home",
+    icon: "flights",
     execute: () => {
-      console.log("Home clicked");
+      console.log("show flights");
+      router.push("/");
+
     },
     menuItems: [],
   },
   {
-    id: "about",
-    title: "About",
+    id: "airport",
+    title: "Airport Info",
     canExecute: true,
     icon: "info",
     execute: () => {
-      console.log("About clicked");
+      console.log("show airport info");
+      router.push("/placeholder");
     },
     menuItems: [],
   },
