@@ -13,6 +13,9 @@ export class ConfigurationManagerBuilder {
    * @returns The current instance of ConfigurationManagerBuilder.
    */
   withConfigurationDirectory(directory: string): ConfigurationManagerBuilder {
+    if (typeof directory !== 'string' || directory.trim() === '') {
+      throw new Error('Invalid configuration directory');
+    }
     this.configurationDirectory = directory;
     return this;
   }
@@ -24,6 +27,15 @@ export class ConfigurationManagerBuilder {
    * @returns The current instance of ConfigurationManagerBuilder.
    */
   withFileToLoad(filename: string, id: string): ConfigurationManagerBuilder {
+    if (typeof filename !== 'string' || filename.trim() === '') {
+      throw new Error('Invalid filename');
+    }
+    if (typeof id !== 'string' || id.trim() === '') {
+      throw new Error('Invalid id');
+    }
+    if (this.filesToLoad.some(file => file.id === id)) {
+      throw new Error(`Duplicate id: ${id}`);
+    }
     this.filesToLoad.push({ filename, id: id });
     return this;
   }
