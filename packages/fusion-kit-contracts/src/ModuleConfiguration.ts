@@ -1,3 +1,5 @@
+import { UserFeedbackService } from '.';
+
 export type RemoteModuleConfigurationFormat = 'esm' | 'systemjs' | 'var';
 export type RemoteModuleConfigurationBundler = 'vite' | 'webpack';
 
@@ -5,7 +7,7 @@ export type RemoteModuleConfigurationBundler = 'vite' | 'webpack';
 //This configuration includes details such as the URL, name, module type, format, and bundler.
 
 /**
- * 
+ *
  * @param url 'http://localhost:9000/assets/remoteEntry.js'
  * @param name 'remoteA'
  * @param module './RemoteARoot'
@@ -38,7 +40,13 @@ export interface Module {
   title: string;
   description: string;
   menuItems: ModuleMenuItem[];
-  mount(container: string | HTMLElement): void;
+  mount(container: string | HTMLElement, moduleConfiguration?: ModuleConfiguration): void;
   unmount(): void;
 }
 
+//used a parameter for the mount method of the `Module` interface.
+export interface ModuleConfiguration {
+  userId?: () => string;
+  userToken?: () => string;
+  userfeedback?: UserFeedbackService;
+}

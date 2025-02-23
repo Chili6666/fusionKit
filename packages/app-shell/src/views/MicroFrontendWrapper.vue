@@ -29,8 +29,8 @@ onMounted(async () => {
     return;
   }
 
-  //mount module
-  module.mount('mycontainer');
+  //mount module and pass the userfeedback object. you can also pass other objects
+  module.mount('mycontainer', {userfeedback: fusionApp?.userFeedback});
   fusionApp?.logger?.info(`Module with name: ${module?.name} loaded`);
 });
 

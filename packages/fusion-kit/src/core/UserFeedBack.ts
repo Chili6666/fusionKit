@@ -1,9 +1,9 @@
-import { FrameAdapter, MessageBoxMessage, NotificationTypes, ToastTypes } from 'fusion-kit-contracts';
+import { FrameAdapter, MessageBoxMessage, NotificationTypes, ToastTypes, UserFeedbackService } from 'fusion-kit-contracts';
 
 /**
  * Service for handling user feedback such as notifications and messages.
  */
-export class UserFeedback {
+export class UserFeedback implements UserFeedbackService {
   private _frameAdapter: FrameAdapter | undefined;
 
   /**

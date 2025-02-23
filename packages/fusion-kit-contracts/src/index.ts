@@ -6,3 +6,4 @@ export * from './TypeDefinitions';
 export * from './FrameAdapter';
 export * from './ModuleConfiguration';
 export * from './RemoteModuleManager';
+export * from './UserFeedbackService';
