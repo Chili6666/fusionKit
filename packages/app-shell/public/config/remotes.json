@@ -1,5 +1,5 @@
 {
-    "mfe3": {
+    "static-mfe": {
         "url": "http://localhost:4003/assets/remoteEntry.js",
         "type": "vite"
     }

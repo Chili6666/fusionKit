@@ -8,9 +8,9 @@
         width="24"
         height="24"
       >
-        <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+      <path d="M21 16v-2l-8-5V3.5c0-.28-.22-.5-.5-.5s-.5.22-.5.5V9l-8 5v2l8-2.5V21l-2 1v1h6v-1l-2-1v-7.5l8 2.5z" />
       </svg>
-      Home
+      All Flights
     </button>
     <button @click="navigateToProfile" class="nav-button">
       <svg

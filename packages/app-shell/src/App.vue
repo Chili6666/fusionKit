@@ -1,11 +1,23 @@
 <template>
-  <div class="shell-container">
+  <div v-if="loading" class="loading">Loading...</div>
+  <div class="shell-container" v-else>
     <div class="toolbar">
       <button @click="navigateToHome">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
           <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
         </svg>
       </button>
+
+      <!-- add modules to the header -->
+      <div class="button-container">
+        <button class="parallelogram-btn" v-for="module in modules" :key="module.name" @click="navigateToModule(module)">
+          <svg viewBox="0 0 100 50" preserveAspectRatio="none">
+            <path class="parallelogram" d="M20,0 L100,0 L80,50 L0,50 Z" fill="yellow" stroke="purple" stroke-width="2" />
+          </svg>
+          <span> {{ module.title }}</span>
+        </button>
+      </div>
+
       <button @click="() => handleShowMessageBox('Title', [{ message: 'Message' }])">Show MessageBox</button>
       <button @click="() => handleShowNotification('Notification message', 'info')">Show Notification</button>
       <button @click="() => handleShowToast('Default message', 'info')">Show Toast</button>
@@ -45,7 +57,8 @@ import { inject, onMounted, ref } from 'vue';
 import type { FusionApp } from 'fusion-kit';
 import { AppFrameAdapter } from './utils/AppFrameAdapter';
 import { useRouter } from 'vue-router';
-import type { MessageBoxMessage, ModuleMenuItem, NotificationTypes, RemoteModuleConfiguration, ToastTypes } from 'fusion-kit-contracts';
+import type { MessageBoxMessage, Module, ModuleMenuItem, NotificationTypes, RemoteModuleConfiguration, ToastTypes } from 'fusion-kit-contracts';
+import { addMfeRoute } from './router';
 
 const router = useRouter();
 
@@ -53,6 +66,8 @@ const router = useRouter();
 const fusionApp = inject<FusionApp>('fusionApp');
 const userEmail = ref('');
 const menuItems = ref<ModuleMenuItem[]>([]);
+const modules = ref<Module[]>([]);
+const loading = ref(true); // Add loading state
 
 if (!fusionApp) {
   throw new Error('shellApp not found');
@@ -60,6 +75,10 @@ if (!fusionApp) {
 
 const navigateToHome = () => {
   router.push('/');
+};
+
+const navigateToModule = (module: Module) => {
+  router.push(`/${module.name}`);
 };
 
 const handleLogout = async () => {
@@ -121,7 +140,6 @@ const proxy = {
 // Register the frame adapter
 fusionApp.registerFrameAdapter(new AppFrameAdapter(proxy));
 
-
 // Load microfrontends on component mount
 onMounted(async () => {
   if (!fusionApp) {
@@ -139,6 +157,12 @@ onMounted(async () => {
     return;
   }
 
+  //add the email to the sidebar
+  const userInfo = await fusionApp.auth.getUserInfo();
+  if (userInfo?.email) {
+    userEmail.value = userInfo.email;
+  }
+
   // Load modules from configuration
   const dynamicRemotes = fusionApp.configurationManager.getContent<RemoteModuleConfiguration[]>('dynamicRemotes');
 
@@ -151,16 +175,19 @@ onMounted(async () => {
   // Initialize remote modules.
   await fusionApp.remoteModuleManager.loadRemoteModules(dynamicRemotes);
 
-  const userInfo = await fusionApp.auth.getUserInfo();
-  if (userInfo?.email) {
-    userEmail.value = userInfo.email;
-  }
+  console.log('APP: Remote modules:', fusionApp.remoteModuleManager?.getLoadedRemoteModules().length);
 
   fusionApp.remoteModuleManager.getLoadedRemoteModules().forEach(module => {
+    //add modules to the modules array
+    modules.value.push(module);
+    addMfeRoute(module.name); //add dynamic routes to the router
+    //add menu items to the sidebar
     module.menuItems.forEach(item => {
       menuItems.value.push(item);
     });
   });
+
+  loading.value = false; // Set loading to false after modules are loaded
 });
 </script>
 
@@ -169,6 +196,15 @@ onMounted(async () => {
   display: grid;
   grid-template-rows: auto 1fr auto;
   height: 100vh;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-size: 24px;
+  position: absolute;
 }
 
 .toolbar {
@@ -235,5 +271,49 @@ onMounted(async () => {
   border: none;
   border-top: 1px solid #ccc;
   margin: 10px 0;
+}
+
+.button-container {
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+
+.parallelogram-btn {
+  padding: 0;
+  margin: 0;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  position: relative;
+  min-width: 120px;
+  height: 50px;
+  outline: none; /* Remove focus frame */
+}
+
+.parallelogram-btn:not(:first-child) {
+  transform: translateX(-24px); /* Apply transformation to all except the first one */
+}
+
+.parallelogram-btn svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.parallelogram-btn span {
+  position: absolute;
+  z-index: 1;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  white-space: nowrap;
+}
+
+.parallelogram-btn:hover .parallelogram {
+  fill: red;
 }
 </style>
