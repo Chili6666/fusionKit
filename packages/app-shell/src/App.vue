@@ -147,15 +147,6 @@ onMounted(async () => {
     return;
   }
 
-  if (!fusionApp.remoteModuleManager) {
-    console.error('Remote Module Manager is not initialized');
-    return;
-  }
-
-  if (!fusionApp.configurationManager) {
-    console.error('Configuration Manager is not initialized');
-    return;
-  }
 
   //add the email to the sidebar
   const userInfo = await fusionApp.auth.getUserInfo();
@@ -163,11 +154,25 @@ onMounted(async () => {
     userEmail.value = userInfo.email;
   }
 
+  if (!fusionApp.remoteModuleManager) {
+    loading.value = false;
+    console.error('Remote Module Manager is not initialized');
+    return;
+  }
+
+
+  if (!fusionApp.configurationManager) {
+    loading.value = false;
+    console.error('Configuration Manager is not initialized');
+    return;
+  }
+
   // Load modules from configuration
   const dynamicRemotes = fusionApp.configurationManager.getContent<RemoteModuleConfiguration[]>('dynamicRemotes');
 
   if (!dynamicRemotes) {
     console.error('Dynamic Remotes is not initialized');
+    loading.value = false;
     return;
   }
 
