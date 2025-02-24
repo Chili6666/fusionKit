@@ -1,4 +1,5 @@
-import { Module, RemoteModuleConfiguration } from './ModuleConfiguration';
+import { Module } from './Module';
+import { RemoteModuleConfiguration } from './RemoteModuleConfiguration';
 
 /**
  * RemoteModuleManager is responsible for loading remote modules and managing their lifecycle.

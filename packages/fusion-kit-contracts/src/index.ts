@@ -5,5 +5,8 @@ export * from './LoggerOptions';
 export * from './TypeDefinitions';
 export * from './FrameAdapter';
 export * from './ModuleConfiguration';
+export * from './ModuleMenuItem';
+export * from './Module';
+export * from './RemoteModuleConfiguration';
 export * from './RemoteModuleManager';
 export * from './UserFeedbackService';

@@ -6,3 +6,7 @@ export interface MessageBoxMessage {
   type?: MessageBoxTypes;
   message?: string;
 }
+
+
+export type RemoteModuleConfigurationFormat = 'esm' | 'systemjs' | 'var';
+export type RemoteModuleConfigurationBundler = 'vite' | 'webpack';
