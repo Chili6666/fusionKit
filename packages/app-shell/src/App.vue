@@ -10,7 +10,7 @@
 
       <!-- add modules to the header -->
       <div class="button-container">
-        <button class="parallelogram-btn" v-for="module in modules" :key="module.name" @click="navigateToModule(module)">
+        <button class="parallelogram-btn" v-for="module in modules" :key="module.name" @click="handleActivateModule(module.name)">
           <svg viewBox="0 0 100 50" preserveAspectRatio="none">
             <path class="parallelogram" d="M20,0 L100,0 L80,50 L0,50 Z" fill="yellow" stroke="purple" stroke-width="2" />
           </svg>
@@ -27,7 +27,7 @@
         <div class="email">{{ userEmail }}</div>
         <ul class="menu">
           <li @click="editProfileAction">Edit Profile</li>
-          <hr class="separator" />
+          <hr class="separator" v-if="menuItems.length > 0 " />
           <li v-for="item in menuItems" :key="item.id" @click="executeMenuItemAction(item)">
             {{ item.title }}
           </li>
@@ -53,7 +53,7 @@
 import LoggerDisplay from './components/LoggerDisplay.vue';
 import Toast from './components/Toast.vue';
 import MessageBox from './components/MessageBox.vue';
-import { inject, onMounted, ref } from 'vue';
+import { inject, onMounted, ref, watch } from 'vue';
 import type { FusionApp } from 'fusion-kit';
 import { AppFrameAdapter } from './utils/AppFrameAdapter';
 import { useRouter } from 'vue-router';
@@ -67,19 +67,41 @@ const fusionApp = inject<FusionApp>('fusionApp');
 const userEmail = ref('');
 const menuItems = ref<ModuleMenuItem[]>([]);
 const modules = ref<Module[]>([]);
+const activeModule = ref<Module | undefined>();
 const loading = ref(true); // Add loading state
 
 if (!fusionApp) {
   throw new Error('shellApp not found');
 }
 
+//************************************************** */
+// Navigation between modules
+//************************************************** */
 const navigateToHome = () => {
   router.push('/');
+  activeModule.value = undefined;
 };
 
-const navigateToModule = (module: Module) => {
-  router.push(`/${module.name}`);
+const handleActivateModule = (moduleName: string) => {
+  activeModule.value = modules.value.find(module => module.name === moduleName);
 };
+
+// Watch for changes to activeModule
+watch(activeModule, newModule => {
+  if (newModule) {
+    router.push(`/${newModule.name}`);
+    //add menu items to the sidebar
+    newModule.menuItems.forEach(item => {
+      menuItems.value.push(item);
+    });
+  } else {
+    menuItems.value = [];//reset menuitems
+  }
+});
+
+//************************************************** */
+// Handle Menu Item action
+//************************************************** */
 
 const handleLogout = async () => {
   await fusionApp.auth.logout();
@@ -89,6 +111,15 @@ const handleLogout = async () => {
 const editProfileAction = () => {
   fusionApp.userFeedback.showToast('Nice try', 'info');
 };
+
+const executeMenuItemAction = (menuItem: ModuleMenuItem) => {
+  console.log('Executing menu item:', menuItem);
+  if (menuItem.execute) menuItem.execute();
+};
+
+//************************************************** */
+//Handle ugly vue bindings. everythings get better if we use a web component
+//************************************************** */
 
 const handleShowMessageBox = (title: string, messages: MessageBoxMessage[]) => {
   messageBox.value = {
@@ -127,15 +158,15 @@ const handleShowToast = (message: string, toastType: ToastTypes = 'info') => {
   }, toast.value.duration);
 };
 
-const executeMenuItemAction = (menuItem: ModuleMenuItem) => {
-  if (menuItem.execute) menuItem.execute();
-};
-
 const proxy = {
   handleShowToast,
   handleShowNotification,
   handleShowMessageBox,
 };
+
+//************************************************** */
+// Load modules and menu items and all this other stuff
+//************************************************** */
 
 // Register the frame adapter
 fusionApp.registerFrameAdapter(new AppFrameAdapter(proxy));
@@ -146,7 +177,6 @@ onMounted(async () => {
     console.error('Fusion App is not initialized');
     return;
   }
-
 
   //add the email to the sidebar
   const userInfo = await fusionApp.auth.getUserInfo();
@@ -159,7 +189,6 @@ onMounted(async () => {
     console.error('Remote Module Manager is not initialized');
     return;
   }
-
 
   if (!fusionApp.configurationManager) {
     loading.value = false;
@@ -186,10 +215,12 @@ onMounted(async () => {
     //add modules to the modules array
     modules.value.push(module);
     addMfeRoute(module.name); //add dynamic routes to the router
-    //add menu items to the sidebar
-    module.menuItems.forEach(item => {
-      menuItems.value.push(item);
-    });
+  });
+
+  //handling the the switch between modules
+  window.addEventListener('activate-module', (event: Event) => {
+    const customEvent = event as CustomEvent;
+    handleActivateModule(customEvent.detail);
   });
 
   loading.value = false; // Set loading to false after modules are loaded

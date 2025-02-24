@@ -1,21 +1,11 @@
 <template>
   <div class="content">
-    <h1>Welcome to Microfrontends</h1>
+    <h1>Welcome to Fusion Kit</h1>
     <div class="features">
       <div class="feature" @click="navigateToStatic">
         <h3>Static MFE</h3>
         <p>Load a static MFE</p>
       </div>
-
-      <!-- <div class="feature" @click="navigateToMFE1">
-        <h3>Microfrontend 1</h3>
-        <p>Load some Flights</p>
-      </div>
-
-      <div class="feature" @click="navigateToMFE2">
-        <h3>Microfrontend 2</h3>
-        <p>Load a Map</p>
-      </div> -->
 
       <div v-for="module in modules" :key="module.name" class="feature" @click="navigateToModule(module.name)">
         <h3>{{ module.title }}</h3>
@@ -35,17 +25,11 @@ const fusionApp = inject<FusionApp>('fusionApp');
 const router = useRouter();
 const modules = ref<Module[]>([]);
 
+
 const navigateToModule = (moduleName: string) => {
-  router.push(`/${moduleName}`);
+  const event = new CustomEvent("activate-module", { detail: moduleName });
+  window.dispatchEvent(event);
 };
-
-// const navigateToMFE1 = () => {
-//   router.push('/mfe1');
-// };
-
-// const navigateToMFE2 = () => {
-//   router.push('/mfe2');
-// };
 
 const navigateToStatic = () => {
   router.push('/static-mfe');
