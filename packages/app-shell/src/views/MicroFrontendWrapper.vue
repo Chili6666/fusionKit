@@ -32,6 +32,7 @@ onMounted(async () => {
   const mc : ModuleConfiguration = {
     encryptedStorage : fusionApp?.encryptedStorage,
     userfeedback : fusionApp?.userFeedback,
+    logger : fusionApp?.logger,
   };
 
   //mount module and pass the userfeedback object. you can also pass other objects

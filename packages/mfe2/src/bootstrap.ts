@@ -1,10 +1,14 @@
 import { createApp, type App } from "vue";
 import AppComponent from "./App.vue";
+import type { ModuleConfiguration } from "fusion-kit-contracts";
 
 let app: App | null = null;
 let mountedElement: HTMLElement | null = null;
 
-export const mount = (container: string | HTMLElement) => {
+export const mount = (
+  container: string | HTMLElement,
+  moduleConfiguration?: ModuleConfiguration
+) => {
   if (app) {
     throw new Error("App already initialized");
   }
@@ -25,6 +29,7 @@ export const mount = (container: string | HTMLElement) => {
   containerElement.appendChild(mountedElement);
 
   app = createApp(AppComponent);
+  app.provide("logger", moduleConfiguration?.logger);
   app.mount(mountedElement);
 
   return app;

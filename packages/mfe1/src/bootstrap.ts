@@ -36,6 +36,7 @@ export const mount = (container: string | HTMLElement, moduleConfiguration?: Mod
 
   app = createApp(AppComponent);
   app.provide("moduleConfiguration", moduleConfiguration);
+  app.provide("logger", moduleConfiguration?.logger);
   app.use(router);
   app.mount(mountedElement);
 
