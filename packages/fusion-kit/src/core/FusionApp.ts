@@ -1,8 +1,8 @@
-import { AuthService, FrameAdapter, Logger, LoggerOptions, RemoteModuleManager } from 'fusion-kit-contracts';
+import { AuthService, EncryptedStorage, FrameAdapter, Logger, LoggerOptions, RemoteModuleManager } from 'fusion-kit-contracts';
 import { ConsoleLogger } from '../services/ConsoleLogger';
 import { UserFeedback } from './UserFeedBack';
 import { ConfigurationManager } from './ConfigurationManager';
-import { EncryptedStorage } from './EncryptedStorage';
+
 
 /**
  * Represents a microfrontend application.

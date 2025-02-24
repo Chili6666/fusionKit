@@ -1,6 +1,6 @@
-import { AuthService, Logger, RemoteModuleManager } from 'fusion-kit-contracts';
+import { AuthService, EncryptedStorage, Logger, RemoteModuleManager } from 'fusion-kit-contracts';
 import { ConfigurationManager, FusionApp } from '..';
-import { EncryptedStorage } from '../core/EncryptedStorage';
+
 
 /**
  * Builder class for creating a FusionApp instance.
@@ -68,9 +68,6 @@ export class FusionAppBuilder {
    * @returns The current instance of FusionAppBuilder.
    */
   public withEncryptedStorage(encryptedStorage: EncryptedStorage): FusionAppBuilder {
-    if (!(encryptedStorage instanceof EncryptedStorage)) {
-      throw new Error('Invalid encryptedStorage: must be an instance of EncryptedStorage');
-    }
     this.encryptedStorage = encryptedStorage;
     return this;
   }

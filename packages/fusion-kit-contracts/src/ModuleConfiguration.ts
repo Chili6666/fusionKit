@@ -1,4 +1,4 @@
-import { UserFeedbackService } from '.';
+import { EncryptedStorage, UserFeedbackService } from '.';
 
 /**
  * Interface representing the configuration options for a module.
@@ -22,4 +22,10 @@ export interface ModuleConfiguration {
    * This service can be used to provide feedback to the user.
    */
   userfeedback?: UserFeedbackService;
+
+  /**
+   * Optional instance of the EncryptedStorage.
+   * This service can be used to store sensitive data in an encrypted form.
+   */
+  encryptedStorage? : EncryptedStorage;
 }

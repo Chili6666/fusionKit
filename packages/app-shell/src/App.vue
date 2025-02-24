@@ -84,6 +84,7 @@ const navigateToHome = () => {
 
 const handleActivateModule = (moduleName: string) => {
   activeModule.value = modules.value.find(module => module.name === moduleName);
+  fusionApp.encryptedStorage?.setItem('activeModule', activeModule.value);
 };
 
 // Watch for changes to activeModule
@@ -208,8 +209,6 @@ onMounted(async () => {
   // TODO - check if module is already loaded
   // Initialize remote modules.
   await fusionApp.remoteModuleManager.loadRemoteModules(dynamicRemotes);
-
-  console.log('APP: Remote modules:', fusionApp.remoteModuleManager?.getLoadedRemoteModules().length);
 
   fusionApp.remoteModuleManager.getLoadedRemoteModules().forEach(module => {
     //add modules to the modules array

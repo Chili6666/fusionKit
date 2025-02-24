@@ -26,6 +26,14 @@ export const mount = (container: string | HTMLElement, moduleConfiguration?: Mod
   mountedElement = document.createElement("div");
   containerElement.appendChild(mountedElement);
 
+  //Only for showcase
+  const keys = moduleConfiguration?.encryptedStorage?.getKeys();
+  if (keys) {
+    keys.forEach(key => {
+      console.log(key);
+    });
+  }
+
   app = createApp(AppComponent);
   app.provide("moduleConfiguration", moduleConfiguration);
   app.use(router);
@@ -33,6 +41,7 @@ export const mount = (container: string | HTMLElement, moduleConfiguration?: Mod
 
   return app;
 };
+
 export const unmount = () => {
   if (!app || !mountedElement) {
     throw new Error("No app instance to unmount");

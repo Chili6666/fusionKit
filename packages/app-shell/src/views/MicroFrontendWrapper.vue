@@ -4,7 +4,7 @@
 
 <script setup lang="ts">
 import type { FusionApp } from 'fusion-kit';
-import type { Module } from 'fusion-kit-contracts';
+import type { Module, ModuleConfiguration } from 'fusion-kit-contracts';
 import { inject, defineProps, onMounted, onUnmounted } from 'vue';
 
 const fusionApp = inject<FusionApp>('fusionApp');
@@ -29,8 +29,13 @@ onMounted(async () => {
     return;
   }
 
+  const mc : ModuleConfiguration = {
+    encryptedStorage : fusionApp?.encryptedStorage,
+    userfeedback : fusionApp?.userFeedback,
+  };
+
   //mount module and pass the userfeedback object. you can also pass other objects
-  module.mount('mycontainer', {userfeedback: fusionApp?.userFeedback});
+  module.mount('mycontainer', mc);
   fusionApp?.logger?.info(`Module with name: ${module?.name} loaded`);
 });
 

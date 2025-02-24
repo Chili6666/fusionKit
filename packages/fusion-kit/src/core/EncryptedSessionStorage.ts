@@ -1,7 +1,9 @@
 import CryptoJS from 'crypto-js';
+import { EncryptedStorage } from 'fusion-kit-contracts';
 
-export class EncryptedStorage {
+export class EncryptedSessionStorage implements EncryptedStorage {
   private readonly encryptionKey: string;
+  private readonly keyPrefix = 'fusion-kit-';
 
   //TODO check the encryption key for length and complexity
   constructor(encryptionKey: string) {
@@ -29,7 +31,7 @@ export class EncryptedStorage {
       const encryptedValue = CryptoJS.AES.encrypt(stringValue, this.encryptionKey).toString();
 
       // Store the encrypted value
-      sessionStorage.setItem(key, encryptedValue);
+      sessionStorage.setItem(this.getPrefixedKey(key), encryptedValue);
     } catch (error) {
       console.error('Error setting encrypted item:', error);
       throw new Error('Failed to set encrypted item in storage');
@@ -47,7 +49,7 @@ export class EncryptedStorage {
     }
 
     try {
-      const encryptedValue = sessionStorage.getItem(key);
+      const encryptedValue = sessionStorage.getItem(this.getPrefixedKey(key));
 
       if (!encryptedValue) {
         return null;
@@ -69,6 +71,8 @@ export class EncryptedStorage {
     }
   }
 
+  //TODO in case of a shared instance, e.g. shell and mfe using the same instance,
+  // we need to add a method that takes care of not removing items from the storage that are not set by the e.g. mfe
   /**
    * Removes an item from sessionStorage
    * @param key The storage key to remove
@@ -79,19 +83,27 @@ export class EncryptedStorage {
     }
 
     try {
-      sessionStorage.removeItem(key);
+      sessionStorage.removeItem(this.getPrefixedKey(key));
     } catch (error) {
       console.error('Error removing item:', error);
       throw new Error('Failed to remove item from storage');
     }
   }
 
+  //TODO same like removeItem. We need to take care of not clearing the whole storage
   /**
-   * Clears all items from sessionStorage
+   * Clears all items from sessionStorage that have the specified key prefix
    */
   public clear(): void {
     try {
-      sessionStorage.clear();
+      const keysToRemove: string[] = [];
+      for (let i = 0; i < sessionStorage.length; i++) {
+        const key = sessionStorage.key(i);
+        if (key && key.startsWith(this.keyPrefix)) {
+          keysToRemove.push(key);
+        }
+      }
+      keysToRemove.forEach(key => sessionStorage.removeItem(key));
     } catch (error) {
       console.error('Error clearing storage:', error);
       throw new Error('Failed to clear storage');
@@ -106,10 +118,14 @@ export class EncryptedStorage {
     const keys: string[] = [];
     for (let i = 0; i < sessionStorage.length; i++) {
       const key = sessionStorage.key(i);
-      if (key) {
-        keys.push(key);
+      if (key && key.startsWith(this.keyPrefix)) {
+        keys.push(key.substring(this.keyPrefix.length));
       }
     }
     return keys;
+  }
+
+  private getPrefixedKey(key: string): string {
+    return `${this.keyPrefix}${key}`;
   }
 }

@@ -10,3 +10,4 @@ export * from './Module';
 export * from './RemoteModuleConfiguration';
 export * from './RemoteModuleManager';
 export * from './UserFeedbackService';
+export * from './EncryptedStorage';
