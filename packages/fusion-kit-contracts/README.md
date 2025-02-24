@@ -223,14 +223,14 @@ The `ModuleMenuItem` interface defines the structure for a menu item within a mo
 - **menuItems**: `ModuleMenuItem[]`
   - An array of sub-menu items, each of which is also a `ModuleMenuItem`.
 
- ### Module Interface
+### Module Interface
 
-The `Module` interface defines the structure for loaded a module, including its identifier, title, description, menu items, and methods for mounting and unmounting the module.
+The `Module` interface defines the structure for bootstrapping a module, including its identifier, title, description, menu items, and methods for mounting and unmounting the module.
 
 #### Properties
 
 - **name**: `string`
-  - the name of the module.
+  - The unique identifier for the module.
   
 - **title**: `string`
   - The display title of the module.
@@ -241,10 +241,14 @@ The `Module` interface defines the structure for loaded a module, including its 
 - **menuItems**: `ModuleMenuItem[]`
   - An array of menu items associated with the module. Each item is defined by the `ModuleMenuItem` interface.
 
+
 #### Methods
 
-- **mount(container: string | HTMLElement): void**
-  - Mounts the module to the specified container. The container can be identified by a string (e.g., a CSS selector) or an `HTMLElement`.
+- **mount(container: string | HTMLElement, moduleConfiguration?: ModuleConfiguration): void**
+  - Mounts the module to the specified container. The container can be identified by a string (e.g., a CSS selector) or an `HTMLElement`. Optionally, configuration options for the module can be provided.
+  - **Parameters:**
+    - `container`: The container element or its ID where the module will be mounted.
+    - `moduleConfiguration`: Optional configuration options for the module.
   
 - **unmount(): void**
   - Unmounts the module, performing any necessary cleanup.
