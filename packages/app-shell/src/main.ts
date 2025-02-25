@@ -3,9 +3,9 @@ import './style.css';
 import App from './App.vue';
 import { ConfigurationManagerBuilder, ConsoleLogger } from 'fusion-kit';
 import { AuthFactory } from './utils/AuthFactory';
-import { FusionAppBuilder, EncryptedSessionStorage } from 'fusion-kit';
+import { FusionAppBuilder, /*EncryptedSessionStorage*/ } from 'fusion-kit';
 import { LoggerOptions } from 'fusion-kit-contracts';
-import { FederationModuleManager } from 'fusion-kit-modul-federation';
+//import { FederationModuleManager } from 'fusion-kit-modul-federation';
 import router from './router';
 
 //manage config
@@ -28,8 +28,8 @@ const fusionApp = await new FusionAppBuilder()
   .withAuthFactory(authServiceFactory)
   .withConfigManager(configManager)
   .withLogger(new ConsoleLogger(LoggerOptions.DEBUG))
-  .withEncryptedStorage(new EncryptedSessionStorage('ADD_YOUR_SECRET_KEY'))
-  .withRemoteModuleManager(new FederationModuleManager())
+  //.withEncryptedStorage(new EncryptedSessionStorage('ADD_YOUR_SECRET_KEY'))
+  //.withRemoteModuleManager(new FederationModuleManager())
   .build();
 
 //init vue app

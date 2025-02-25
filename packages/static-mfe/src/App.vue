@@ -18,5 +18,27 @@
       <line x1="50" y1="5" x2="50" y2="95" stroke="black" stroke-width="5" />
       <line x1="5" y1="50" x2="95" y2="50" stroke="black" stroke-width="5" />
     </svg>
+
+    <button @click="logoutClick">Logout</button>
+    <button @click="toastClick">Show Toast</button>
   </div>
 </template>
+
+<script setup lang="ts">
+import type { FusionApp } from "fusion-kit";
+import { inject } from "vue";
+
+const fusionApp = inject<FusionApp>("fusionApp");
+
+const logoutClick = () => {
+  if (fusionApp?.auth) {
+    fusionApp?.auth.logout();
+  }
+};
+
+const toastClick = () => {
+  if (fusionApp?.userFeedback) {
+    fusionApp?.userFeedback.showToast("Hello from MFE", "info");
+  }
+};
+</script>

@@ -5,16 +5,16 @@ import type {
   ToastTypes,
 } from "fusion-kit-contracts";
 
-interface AppMethods {
+interface ShellMethods {
   handleShowToast: (message: string, type: ToastTypes) => void;
   handleShowNotification: (message: string | undefined, type: NotificationTypes) => void;
   handleShowMessageBox: (title: string, messages: MessageBoxMessage[]) => void;
 }
 
 export class AppFrameAdapter implements FrameAdapter {
-  private _shell: AppMethods;
+  private _shell: ShellMethods;
 
-  constructor(shell: AppMethods) {
+  constructor(shell: ShellMethods) {
     this._shell = shell;
   }
 
