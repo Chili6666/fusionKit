@@ -1,12 +1,15 @@
 import { createApp, type App } from "vue";
 import AppComponent from "./App.vue";
-import router from './router';
-import type { ModuleConfiguration } from 'fusion-kit-contracts';
+import router from "./router";
+import type { Module, ModuleConfiguration } from "fusion-kit-contracts";
 
 let app: App | null = null;
 let mountedElement: HTMLElement | null = null;
 
-export const mount = (container: string | HTMLElement, moduleConfiguration?: ModuleConfiguration) => {
+const mount = (
+  container: string | HTMLElement,
+  moduleConfiguration?: ModuleConfiguration
+) => {
   if (app) {
     throw new Error("App already initialized");
   }
@@ -29,7 +32,7 @@ export const mount = (container: string | HTMLElement, moduleConfiguration?: Mod
   //Only for showcase
   const keys = moduleConfiguration?.encryptedStorage?.getKeys();
   if (keys) {
-    keys.forEach(key => {
+    keys.forEach((key) => {
       console.log(key);
     });
   }
@@ -43,7 +46,7 @@ export const mount = (container: string | HTMLElement, moduleConfiguration?: Mod
   return app;
 };
 
-export const unmount = () => {
+const unmount = () => {
   if (!app || !mountedElement) {
     throw new Error("No app instance to unmount");
   }
@@ -59,13 +62,13 @@ export const unmount = () => {
   mountedElement = null;
 };
 
-export const name = "mfe1";
+const name = "mfe1";
 
-export const title = "MFE 1";
+const title = "MFE 1";
 
-export const description = "This is a micro frontend module 1";
+const description = "This is a micro frontend module 1";
 
-export const menuItems = [
+const menuItems = [
   {
     id: "flights",
     title: "Show Flights",
@@ -74,7 +77,6 @@ export const menuItems = [
     execute: () => {
       console.log("show flights");
       router.push("/");
-
     },
     menuItems: [],
   },
@@ -90,3 +92,14 @@ export const menuItems = [
     menuItems: [],
   },
 ];
+
+const mfe1Module: Module = {
+  name,
+  title,
+  description,
+  menuItems,
+  mount,
+  unmount,
+};
+
+export default mfe1Module;

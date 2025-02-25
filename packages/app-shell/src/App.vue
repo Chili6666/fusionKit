@@ -92,9 +92,10 @@ watch(activeModule, newModule => {
   if (newModule) {
     router.push(`/${newModule.name}`);
     //add menu items to the sidebar
-    newModule.menuItems.forEach(item => {
-      menuItems.value.push(item);
-    });
+    // Create a new array and add newModule.menuItems to it
+    const tempMenuItems = [...newModule.menuItems];
+    // Apply the temp array to App menuItems
+    menuItems.value = tempMenuItems;
   } else {
     menuItems.value = [];//reset menuitems
   }

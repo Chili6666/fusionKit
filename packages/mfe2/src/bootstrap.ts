@@ -1,11 +1,11 @@
 import { createApp, type App } from "vue";
 import AppComponent from "./App.vue";
-import type { ModuleConfiguration } from "fusion-kit-contracts";
+import type { Module, ModuleConfiguration } from "fusion-kit-contracts";
 
 let app: App | null = null;
 let mountedElement: HTMLElement | null = null;
 
-export const mount = (
+const mount = (
   container: string | HTMLElement,
   moduleConfiguration?: ModuleConfiguration
 ) => {
@@ -34,7 +34,8 @@ export const mount = (
 
   return app;
 };
-export const unmount = () => {
+
+const unmount = () => {
   if (!app || !mountedElement) {
     throw new Error("No app instance to unmount");
   }
@@ -50,13 +51,13 @@ export const unmount = () => {
   mountedElement = null;
 };
 
-export const name = "mfe2";
+const name = "mfe2";
 
-export const title = "MFE 2";
+const title = "MFE 2";
 
-export const description = "This is a micro frontend module 2";
+const description = "This is a micro frontend module 2";
 
-export const menuItems = [
+const menuItems = [
   {
     id: "dus",
     title: "Airport DUS",
@@ -78,3 +79,14 @@ export const menuItems = [
     menuItems: [],
   },
 ];
+
+const mfe2Module: Module = {
+  name,
+  title,
+  description,
+  menuItems,
+  mount,
+  unmount,
+};
+
+export default mfe2Module;
