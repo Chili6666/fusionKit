@@ -16,7 +16,6 @@ const props = defineProps<{
 let module: Module | undefined = undefined;
 
 onMounted(async () => {
-  console.log('mount ' + props.moduleName);
   //load module
   loadModule();
 
