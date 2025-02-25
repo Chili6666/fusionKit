@@ -8,13 +8,21 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted } from "vue";
+import { onMounted, inject } from "vue";
 import { Map, View } from "ol";
 import TileLayer from "ol/layer/Tile";
 import OSM from "ol/source/OSM";
+import { useGeographic } from "ol/proj";
+import { MapBinder } from "./utils";
+
+let map: Map | null = null;
+// inject the moveMapTo method
+const mapBinder = inject<MapBinder>("mapBinder");
 
 onMounted(() => {
-  new Map({
+  console.log("************* Map component mounted ***************");
+
+  map = new Map({
     target: "map",
     controls: [],
     layers: [
@@ -27,6 +35,11 @@ onMounted(() => {
       zoom: 2,
     }),
   });
+
+  if (mapBinder) mapBinder.mapInstance = map;
+
+  //important!
+  useGeographic();
 });
 </script>
 

@@ -115,7 +115,6 @@ const editProfileAction = () => {
 };
 
 const executeMenuItemAction = (menuItem: ModuleMenuItem) => {
-  console.log('Executing menu item:', menuItem);
   if (menuItem.execute) menuItem.execute();
 };
 

@@ -1,9 +1,11 @@
 import { createApp, type App } from "vue";
 import AppComponent from "./App.vue";
 import type { Module, ModuleConfiguration } from "fusion-kit-contracts";
+import { MapBinder } from "./utils";
 
 let app: App | null = null;
 let mountedElement: HTMLElement | null = null;
+let mapBinder: MapBinder | null = null;
 
 const mount = (
   container: string | HTMLElement,
@@ -28,8 +30,11 @@ const mount = (
   mountedElement = document.createElement("div");
   containerElement.appendChild(mountedElement);
 
+  mapBinder = new MapBinder();
+
   app = createApp(AppComponent);
   app.provide("logger", moduleConfiguration?.logger);
+  app.provide("mapBinder", mapBinder);
   app.mount(mountedElement);
 
   return app;
@@ -64,7 +69,7 @@ const menuItems = [
     canExecute: true,
     icon: "airportDUS",
     execute: () => {
-      console.log("show DUS");
+      if (mapBinder != null) mapBinder.moveMapTo(51.2895, 6.7668); // Coordinates for DUS Airport
     },
     menuItems: [],
   },
@@ -74,7 +79,7 @@ const menuItems = [
     canExecute: true,
     icon: "airportFRA",
     execute: () => {
-      console.log("show FRA");
+      if (mapBinder != null) mapBinder.moveMapTo(50.0379, 8.5622); // Coordinates for FRA Airport
     },
     menuItems: [],
   },
