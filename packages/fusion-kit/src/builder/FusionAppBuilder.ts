@@ -6,7 +6,7 @@ import { ConfigurationManager, FusionApp } from '..';
  * Builder class for creating a FusionApp instance.
  */
 export class FusionAppBuilder {
-  private name: string = '';
+  private name: string = 'fusion-app';
   private authServiceFactory: (() => Promise<AuthService>) | undefined;
   private configManager: ConfigurationManager | undefined;
   private logger: Logger | undefined;
