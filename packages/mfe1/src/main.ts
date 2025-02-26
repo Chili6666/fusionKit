@@ -7,6 +7,8 @@ import "./assets/main.css";
 import { ConfigurationManagerBuilder, FusionAppBuilder } from "fusion-kit";
 import { KeyCloakService, type KeyCloakConfig } from "fusion-kit-keycloak";
 import type { Configuration } from "./configuration";
+import { MFEFrameAdapter } from "./utils/MFEFrameAdapter";
+import type { ModuleConfiguration } from 'fusion-kit-contracts';
 
 const configManager = await new ConfigurationManagerBuilder()
   .withConfigurationDirectory(window.location.origin + "/config/")
@@ -43,8 +45,15 @@ const initApp = async () => {
   const isLoggedIn = await fusionApp?.auth.init();
   if (!isLoggedIn) window.alert("User not logged in");
   else {
+    //Register the frame adapter only show case
+    fusionApp.registerFrameAdapter(new MFEFrameAdapter());
+
+    const moduleConfiguration : ModuleConfiguration = {
+      userfeedback : fusionApp.userFeedback
+    };
+    
     const app = createApp(App);
-    app.provide("fusionApp", fusionApp);
+    app.provide("moduleConfiguration", moduleConfiguration);
     app.use(router);
     app.mount("#app");
   }
